@@ -184,6 +184,31 @@
   .tips-list{ margin:0; padding:0 16px 16px 34px; font-size:0.86rem; color:#38408f; line-height:1.7; }
   .tips-list li{ margin-bottom:4px; }
 
+  /* ---------- Concentrix Prep Button ---------- */
+  .prep-btn-wrap{ margin-top:16px; }
+  .prep-btn{
+    display:inline-flex; align-items:center; gap:9px;
+    background:linear-gradient(135deg, var(--voice) 0%, #6B7FE8 100%);
+    color:#fff; font-family:var(--font-display); font-size:0.9rem; font-weight:700;
+    padding:11px 22px; border-radius:12px; border:none; cursor:pointer;
+    box-shadow:0 4px 18px -4px rgba(76,95,213,0.55);
+    text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    letter-spacing:0.01em;
+  }
+  .prep-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 28px -4px rgba(76,95,213,0.65);
+    background:linear-gradient(135deg, #3d52c8 0%, var(--voice) 100%);
+  }
+  .prep-btn:active{ transform:translateY(0); }
+  .prep-btn svg{ width:18px; height:18px; flex-shrink:0; }
+  .prep-btn .badge{
+    font-family:var(--font-mono); font-size:0.67rem; font-weight:600;
+    background:rgba(255,255,255,0.22); border-radius:6px; padding:2px 7px;
+    letter-spacing:0.06em;
+  }
+
   /* ---------- Footer ---------- */
   .footer-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; padding:0 2px; flex-wrap:wrap; }
   .reset-btn{
@@ -223,6 +248,14 @@
       <div class="stat rate"><div class="val" id="stat-rate">0%</div><div class="lbl">Resolution rate</div></div>
     </div>
     <p class="hero-note">Works like a helpdesk queue &mdash; same idea as <b>Freshdesk</b> or <b>Zoho</b> from your resume. Open a ticket, read the fix, resolve it. Your progress is saved on this device.</p>
+
+    <div class="prep-btn-wrap">
+      <a href="concentrix-prep_1.html" class="prep-btn" id="concentrix-prep-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Concentrix Prep Guide
+        <span class="badge">FULL PREP</span>
+      </a>
+    </div>
   </div>
 
   <div class="controls">

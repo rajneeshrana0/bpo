@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concentrix Prep — Complete Drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1F2E45;
+    --paper:#FAF7F0;
+    --paper-alt:#F1ECDD;
+    --amber:#D9A441;
+    --amber-deep:#B8842A;
+    --teal:#3E7C74;
+    --rose:#B65C56;
+    --muted:#5B6B84;
+    --line:#DCD5C2;
+    --shadow: 0 1px 2px rgba(31,46,69,0.06), 0 6px 16px rgba(31,46,69,0.07);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper-alt);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{max-width:920px;margin:0 auto;padding:0 0 60px;}
+
+  /* HEADER */
+  header.top{
+    padding:34px 24px 22px;
+    border-bottom:2px solid var(--ink);
+    background:
+      repeating-linear-gradient(135deg, transparent, transparent 38px, rgba(31,46,69,0.02) 38px, rgba(31,46,69,0.02) 76px);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber-deep);
+    font-weight:600;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;background:var(--amber);display:inline-block;border-radius:1px;}
+  h1.title{
+    font-family:'Lora',serif;
+    font-weight:700;
+    font-size:clamp(28px,4vw,38px);
+    margin:8px 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--muted);font-size:15px;line-height:1.5;max-width:640px;}
+
+  /* TABS */
+  nav.tabs{
+    display:flex;
+    gap:2px;
+    padding:0 24px;
+    margin-top:22px;
+    flex-wrap:wrap;
+  }
+  nav.tabs button{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.03em;
+    background:var(--paper-alt);
+    border:1.5px solid var(--ink);
+    border-bottom:none;
+    color:var(--ink);
+    padding:10px 16px 9px;
+    border-radius:6px 6px 0 0;
+    cursor:pointer;
+    position:relative;
+    top:1px;
+    opacity:.55;
+  }
+  nav.tabs button.active{
+    background:var(--paper);
+    opacity:1;
+    box-shadow:0 -2px 0 var(--amber) inset;
+  }
+  nav.tabs button:hover{opacity:.85;}
+
+  main{
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    border-top:none;
+    padding:26px 24px 34px;
+  }
+  section.tab{display:none;}
+  section.tab.active{display:block;}
+
+  h2.sec-title{
+    font-family:'Lora',serif;
+    font-size:21px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  p.sec-desc{color:var(--muted);font-size:14px;margin:0 0 20px;line-height:1.55;}
+
+  /* CONTROLS */
+  .controls{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    margin-bottom:18px;
+    padding-bottom:16px;
+    border-bottom:1px dashed var(--line);
+  }
+  input[type="text"]{
+    font-family:'Inter',sans-serif;
+    font-size:13.5px;
+    padding:9px 12px;
+    border:1.5px solid var(--line);
+    border-radius:7px;
+    background:#fff;
+    flex:1;
+    min-width:160px;
+    color:var(--ink);
+  }
+  input[type="text"]:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber);}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;font-weight:600;letter-spacing:.03em;
+    padding:6px 11px;border-radius:20px;
+    border:1.5px solid var(--ink);
+    background:#fff;color:var(--ink);
+    cursor:pointer;opacity:.6;
+  }
+  .chip.on{opacity:1;background:var(--ink);color:var(--paper);}
+  .len-chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;font-weight:600;letter-spacing:.03em;
+    padding:8px 14px;border-radius:20px;
+    border:1.5px solid var(--ink);
+    background:#fff;color:var(--ink);
+    cursor:pointer;opacity:.6;
+  }
+  .len-chip.on{opacity:1;background:var(--ink);color:var(--paper);}
+  label.toggle{
+    font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .btn-ghost{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    background:none;border:1.5px solid var(--muted);color:var(--muted);
+    padding:6px 12px;border-radius:20px;cursor:pointer;
+  }
+  .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* PROGRESS */
+  .progress-wrap{margin-bottom:20px;}
+  .progress-label{
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);margin-bottom:5px;
+  }
+  .progress-bar{height:8px;background:var(--paper-alt);border:1px solid var(--line);border-radius:5px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--teal));width:0%;transition:width .3s;}
+
+  /* CARDS */
+  .card{
+    border:1.5px solid var(--line);
+    border-left:3px solid var(--ink);
+    border-radius:8px;
+    padding:16px 16px 14px;
+    margin-bottom:12px;
+    background:#fff;
+    box-shadow:var(--shadow);
+    transition:opacity .15s;
+  }
+  .card.mastered{border-left-color:var(--teal);}
+  .card.hidden-item{display:none;}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .num{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);font-weight:600;
+  }
+  .stamp{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.08em;
+    border:1.3px solid var(--amber-deep);color:var(--amber-deep);
+    padding:2px 7px;border-radius:4px;text-transform:uppercase;white-space:nowrap;
+  }
+  .stamp.GRAM{border-color:var(--rose);color:var(--rose);}
+  .stamp.CTX{border-color:var(--teal);color:var(--teal);}
+  .sentence{font-size:15px;line-height:1.6;margin:0 0 4px;}
+  .blank{
+    font-weight:700;color:var(--amber-deep);
+    border-bottom:2px dotted var(--amber-deep);
+    padding:0 2px;
+  }
+  .reveal-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    background:var(--ink);color:var(--paper);border:none;
+    padding:6px 13px;border-radius:6px;cursor:pointer;margin-top:6px;
+  }
+  .reveal-btn:hover{background:var(--amber-deep);}
+  .dict-actions{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+  .listen-btn, .record-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    border:none;padding:6px 13px;border-radius:6px;cursor:pointer;color:#fff;
+  }
+  .listen-btn{background:var(--teal);}
+  .listen-btn:hover{background:#336861;}
+  .listen-btn:disabled{opacity:.6;cursor:default;}
+  .record-btn{background:var(--rose);}
+  .record-btn:hover{background:#9c4e48;}
+  .record-btn.recording{background:#8a2f2f;animation:pulse 1s infinite;}
+  @keyframes pulse{0%{opacity:1;}50%{opacity:.55;}100%{opacity:1;}}
+  .rec-playback{margin:0 0 8px;}
+  .rec-playback audio{width:100%;height:34px;}
+  .mic-error{font-size:12.5px;color:var(--rose);margin:0;line-height:1.5;}
+  .answer-box{
+    display:none;
+    margin-top:10px;padding:10px 12px;
+    background:var(--paper-alt);border-radius:6px;border:1px dashed var(--line);
+  }
+  .answer-box.shown{display:block;}
+  .answer-line{font-size:14px;margin:0 0 5px;}
+  .answer-line b{color:var(--teal);font-family:'Lora',serif;}
+  .reason{font-size:13px;color:var(--muted);line-height:1.5;margin:0;}
+  .master-row{margin-top:10px;display:flex;align-items:center;gap:7px;}
+  .master-row input{width:15px;height:15px;accent-color:var(--teal);}
+  .master-row label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;}
+
+  /* DICTATION */
+  .dict-item{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:10px 4px;border-bottom:1px solid var(--paper-alt);
+    font-size:14.5px;line-height:1.5;
+  }
+  .dict-item input{margin-top:3px;width:15px;height:15px;accent-color:var(--teal);flex-shrink:0;}
+  .dict-item.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line);}
+  .watch{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--rose);
+    border:1px solid var(--rose);padding:1px 6px;border-radius:4px;margin-left:8px;white-space:nowrap;
+  }
+
+  /* EMAIL / PASSAGE */
+  .template-box{
+    background:var(--paper-alt);border:1.5px dashed var(--ink);border-radius:8px;
+    padding:16px 18px;margin-bottom:22px;
+  }
+  .template-box h3{font-family:'Lora',serif;font-size:16px;margin:0 0 10px;}
+  .template-box ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.8;}
+  .template-box li b{color:var(--amber-deep);}
+  .topic-card{
+    border:1.5px solid var(--line);border-radius:8px;padding:13px 15px;margin-bottom:10px;background:#fff;
+  }
+  .topic-card .num{color:var(--amber-deep);}
+  .topic-card p{margin:6px 0 8px;font-size:14px;line-height:1.5;}
+  .theme-tags{display:flex;gap:6px;flex-wrap:wrap;}
+  .theme-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--paper-alt);
+    border:1px solid var(--line);padding:3px 8px;border-radius:12px;color:var(--muted);
+  }
+  .sample-box{
+    border:1.5px solid var(--ink);border-radius:8px;padding:16px 18px;margin-top:16px;background:#fff;
+  }
+  .sample-box h4{font-family:'Lora',serif;font-size:15px;margin:0 0 10px;color:var(--amber-deep);}
+  .sample-box .line{font-size:13.5px;line-height:1.75;margin-bottom:8px;}
+  .tag-inline{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--teal);font-weight:600;
+    display:block;margin-top:2px;letter-spacing:.03em;text-transform:uppercase;
+  }
+  .passage-pair{border:1.5px solid var(--line);border-radius:8px;padding:15px 17px;margin-bottom:14px;background:#fff;}
+  .passage-pair .orig{font-size:13.5px;line-height:1.6;margin-bottom:8px;}
+  .passage-pair .recon{font-size:13.5px;line-height:1.6;background:var(--paper-alt);padding:9px 11px;border-radius:6px;margin-bottom:8px;}
+  .passage-pair .tech{font-size:12.5px;color:var(--muted);margin:0;}
+  .lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px;}
+
+  footer.note{
+    text-align:center;color:var(--muted);font-size:12px;margin-top:24px;font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* BACK BUTTON */
+  .back-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.04em;
+    color:var(--amber-deep);text-decoration:none;
+    border:1.5px solid var(--amber);background:rgba(217,164,65,.08);
+    padding:7px 14px;border-radius:8px;
+    margin-bottom:18px;
+    transition:background .15s,transform .15s,box-shadow .15s;
+    box-shadow:0 1px 4px rgba(184,132,42,.12);
+  }
+  .back-btn:hover{
+    background:rgba(217,164,65,.18);
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(184,132,42,.22);
+  }
+  .back-btn:active{transform:translateY(0);}
+  .back-btn svg{width:14px;height:14px;flex-shrink:0;}
+
+  @media (max-width:600px){
+    header.top{padding:26px 16px 18px;}
+    nav.tabs{padding:0 16px;}
+    main{padding:20px 16px 28px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="top">
+    <a href="index.html" class="back-btn" id="back-to-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Queue
+    </a>
+    <div class="eyebrow">Concentrix · Non-Voice Chat Round</div>
+    <h1 class="title">The Complete Drill</h1>
+    <p class="subtitle">100 fill-in-the-blank items, the full 70-sentence dictation set, both email-writing templates, the passage reconstruction technique, plus 50 questions each for AMCAT, Versant, Ops, and HR \u2014 all with answers and reasoning. Nothing left out.</p>
+  </header>
+
+  <nav class="tabs" id="tabNav">
+    <button data-tab="fillblank" class="active">01 Fill-in-Blank (100)</button>
+    <button data-tab="dictation">02 Dictation (70)</button>
+    <button data-tab="email">03 Email Writing</button>
+    <button data-tab="passage">04 Passage Reconstruction</button>
+    <button data-tab="amcat">05 AMCAT (50)</button>
+    <button data-tab="versant">06 Versant (50)</button>
+    <button data-tab="ops">07 Ops Round (50)</button>
+    <button data-tab="hr">08 HR Round (50)</button>
+    <button data-tab="speaking">09 Speaking (50)</button>
+    <button data-tab="mocktest">10 Mock Test</button>
+  </nav>
+
+  <main>
+
+    <!-- ============ TAB 1: FILL IN THE BLANK ============ -->
+    <section class="tab active" id="tab-fillblank">
+      <h2 class="sec-title">Fill-in-the-Blank — Collocation Drill</h2>
+      <p class="sec-desc">Most of these test <b>fixed word-pairs (collocations)</b> — English doesn't let you swap the partner word freely, even if a synonym seems logical. A smaller share test <b>vocabulary-by-meaning</b>, <b>grammar rules</b>, or <b>context clues</b>. Tap a card to reveal the answer and the reason. Tick "Got it" once you're confident — your progress is saved.</p>
+
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="progText">0 / 100 mastered</span><span id="progPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      </div>
+
+      <div class="controls">
+        <input type="text" id="fbSearch" placeholder="Search a sentence or word…">
+        <button class="chip on" data-tag="ALL">All</button>
+        <button class="chip" data-tag="COLL">Collocation</button>
+        <button class="chip" data-tag="VOCAB">Vocabulary</button>
+        <button class="chip" data-tag="GRAM">Grammar</button>
+        <button class="chip" data-tag="CTX">Context</button>
+        <label class="toggle"><input type="checkbox" id="onlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="resetProgress">Reset progress</button>
+      </div>
+
+      <div id="fbList"></div>
+    </section>
+
+    <!-- ============ TAB 2: DICTATION ============ -->
+    <section class="tab" id="tab-dictation">
+      <h2 class="sec-title">Dictation Practice — 70 Sentences</h2>
+      <p class="sec-desc">In dictation you're graded on writing <b>exactly</b> what's spoken — spelling, punctuation, capitalisation, and small grammar words (a/an/the, 's, contractions) all count. Hit <b>Listen</b> to hear the sentence read aloud (US accent) without seeing the text, write down what you heard, then hit <b>Record</b> to speak the sentence back yourself and play it back to check your pronunciation. Reveal only once you're done. Sentences flagged <span class="watch">watch</span> have a common trap: a contraction, a tag question, or a perfect tense that's easy to mishear or misspell.</p>
+      <div id="dictList"></div>
+    </section>
+
+    <!-- ============ TAB 3: EMAIL WRITING ============ -->
+    <section class="tab" id="tab-email">
+      <h2 class="sec-title">Email Writing</h2>
+      <p class="sec-desc">Every topic in this set follows the same shape. Learn the shape once, and you can answer any of them under time pressure.</p>
+
+      <div class="template-box">
+        <h3>The universal 4-part structure</h3>
+        <ol>
+          <li><b>Greeting</b> — "Dear / Hello [Name],"</li>
+          <li><b>Purpose line</b> — one sentence stating why you're writing (context + what you want).</li>
+          <li><b>Three supporting points</b> — one short paragraph per required theme. Name the theme, then give one concrete reason or example. Always use exactly the three themes given in the prompt — don't add a fourth or skip one.</li>
+          <li><b>Closing</b> — a polite offer to discuss further + sign-off ("Thanks & Regards,").</li>
+        </ol>
+      </div>
+
+      <h3 style="font-family:'Lora',serif;font-size:16px;margin:22px 0 10px;">Practice topics</h3>
+      <div id="emailTopics"></div>
+
+      <h3 style="font-family:'Lora',serif;font-size:16px;margin:26px 0 10px;">Two full worked examples</h3>
+      <div class="sample-box">
+        <h4>Recognising a co-worker (Anna → Mr. Henderson)</h4>
+        <div class="line"><b>Hello Mr. Henderson,</b></div>
+        <div class="line">I hope this email finds you well. As you know, our company has a program to reward outstanding workers — I'd like to nominate Anna, whose work on the recent project has been excellent.<span class="tag-inline">purpose line</span></div>
+        <div class="line">First, she has strong work habits and sets an example for the rest of the team.<span class="tag-inline">theme 1 — work habits</span></div>
+        <div class="line">Second, she consistently brings new and well-thought-out ideas that have helped us win clients.<span class="tag-inline">theme 2 — new ideas</span></div>
+        <div class="line">Third, her customer satisfaction scores are consistently high, since she is proficient and polite with every client.<span class="tag-inline">theme 3 — customer satisfaction</span></div>
+        <div class="line">Please let me know if you'd like to discuss this further.<br>Thanks & Regards,<span class="tag-inline">closing</span></div>
+      </div>
+
+      <div class="sample-box">
+        <h4>Requesting a team party (→ Mr. Nelson)</h4>
+        <div class="line"><b>Dear Mr. Nelson,</b></div>
+        <div class="line">My team and I are very pleased about completing the recent project, and I wanted to suggest that we celebrate the effort with a team party.<span class="tag-inline">purpose line</span></div>
+        <div class="line">We put in significant overtime over the past month to meet the deadline.<span class="tag-inline">theme 1 — hours worked</span></div>
+        <div class="line">The project itself was a real success and reflected well on the whole department.<span class="tag-inline">theme 2 — success of the project</span></div>
+        <div class="line">A small celebration would also be great for morale going into the next project.<span class="tag-inline">theme 3 — motivation</span></div>
+        <div class="line">Thanks & Regards,<span class="tag-inline">closing</span></div>
+      </div>
+    </section>
+
+    <!-- ============ TAB 4: PASSAGE RECONSTRUCTION ============ -->
+    <section class="tab" id="tab-passage">
+      <h2 class="sec-title">Passage Reconstruction</h2>
+      <p class="sec-desc">This section tests paraphrasing — saying the same thing in different words without losing any fact. Five moves cover almost every case:</p>
+      <div class="template-box">
+        <h3>The 5 paraphrase moves</h3>
+        <ol>
+          <li><b>Swap synonyms</b> — "confusion" → "misunderstanding", "unfortunately" → "because of"</li>
+          <li><b>Reorder clauses</b> — move the reason clause before or after the main clause</li>
+          <li><b>Change voice</b> — active ↔ passive ("he refused" → "it was refused")</li>
+          <li><b>Combine or split sentences</b> — two short sentences into one, or vice versa</li>
+          <li><b>Keep every fact</b> — names, dates, numbers, and the core sequence of events must all survive</li>
+        </ol>
+      </div>
+      <div id="passageList"></div>
+    </section>
+
+    <!-- ============ TAB 5: AMCAT ============ -->
+    <section class="tab" id="tab-amcat">
+      <h2 class="sec-title">AMCAT — Aptitude &amp; Verbal (50)</h2>
+      <p class="sec-desc">Quantitative (percentages, profit-loss, ratios, time-speed-distance), Logical Reasoning (series, coding-decoding, blood relations), and Verbal Ability — with extra focus on <b>reverse-percentage</b> problems and <b>subject-verb agreement with singular indefinite pronouns</b> (each, either, neither, none, everyone) since these are common trip-ups.</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="amcatProgText">0 / 50 mastered</span><span id="amcatProgPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="amcatProgFill"></div></div>
+      </div>
+      <div class="controls">
+        <input type="text" id="amcatSearch" placeholder="Search…">
+        <button class="chip on" data-section="amcat" data-tag="ALL">All</button>
+        <button class="chip" data-section="amcat" data-tag="QUANT">Quant</button>
+        <button class="chip" data-section="amcat" data-tag="LOGIC">Logical</button>
+        <button class="chip" data-section="amcat" data-tag="VERBAL">Verbal</button>
+        <label class="toggle"><input type="checkbox" id="amcatOnlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="amcatReset">Reset progress</button>
+      </div>
+      <div id="amcatList"></div>
+    </section>
+
+    <!-- ============ TAB 6: VERSANT ============ -->
+    <section class="tab" id="tab-versant">
+      <h2 class="sec-title">Versant — Spoken English (50)</h2>
+      <p class="sec-desc"><b>Sentence Builds</b> (rearrange scrambled words into a correct sentence), <b>Sentence Completion</b> (grammar/collocation in spoken register), and <b>Open Questions</b> (say the model answer out loud a few times for fluency — this is a speaking test, so practice speaking, not just reading).</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="versantProgText">0 / 50 mastered</span><span id="versantProgPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="versantProgFill"></div></div>
+      </div>
+      <div class="controls">
+        <input type="text" id="versantSearch" placeholder="Search…">
+        <button class="chip on" data-section="versant" data-tag="ALL">All</button>
+        <button class="chip" data-section="versant" data-tag="BUILD">Sentence Build</button>
+        <button class="chip" data-section="versant" data-tag="COMPLETE">Completion</button>
+        <button class="chip" data-section="versant" data-tag="OPEN">Open Q&amp;A</button>
+        <label class="toggle"><input type="checkbox" id="versantOnlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="versantReset">Reset progress</button>
+      </div>
+      <div id="versantList"></div>
+    </section>
+
+    <!-- ============ TAB 7: OPS ============ -->
+    <section class="tab" id="tab-ops">
+      <h2 class="sec-title">Ops Round (50)</h2>
+      <p class="sec-desc">BPO <b>acronyms</b> (SLA, CSAT, AHT, FCR, NPS...), <b>situational/customer scenarios</b> with model answers, and <b>metrics understanding</b> questions — this round checks whether you understand how a support floor actually runs.</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="opsProgText">0 / 50 mastered</span><span id="opsProgPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="opsProgFill"></div></div>
+      </div>
+      <div class="controls">
+        <input type="text" id="opsSearch" placeholder="Search…">
+        <button class="chip on" data-section="ops" data-tag="ALL">All</button>
+        <button class="chip" data-section="ops" data-tag="ACRO">Acronyms</button>
+        <button class="chip" data-section="ops" data-tag="SCENARIO">Scenarios</button>
+        <button class="chip" data-section="ops" data-tag="METRIC">Metrics</button>
+        <label class="toggle"><input type="checkbox" id="opsOnlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="opsReset">Reset progress</button>
+      </div>
+      <div id="opsList"></div>
+    </section>
+
+    <!-- ============ TAB 8: HR ============ -->
+    <section class="tab" id="tab-hr">
+      <h2 class="sec-title">HR Round (50)</h2>
+      <p class="sec-desc">Standard HR interview questions with model answers. Use these as a starting structure, then swap in your own real details where marked — a memorized-sounding answer is easy for an interviewer to spot.</p>
+      <div class="template-box">
+        <h3>One question worth preparing for specifically</h3>
+        <p style="font-size:13.5px;line-height:1.6;margin:0;">"You're a co-founder running your own company — why are you looking for a BPO role?" A direct, honest answer works best: you're building a startup long-term, and you want a stable, structured income and professional communication experience in the near term. Confidence here reads better than avoiding the topic.</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="hrProgText">0 / 50 mastered</span><span id="hrProgPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="hrProgFill"></div></div>
+      </div>
+      <div class="controls">
+        <input type="text" id="hrSearch" placeholder="Search…">
+        <label class="toggle"><input type="checkbox" id="hrOnlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="hrReset">Reset progress</button>
+      </div>
+      <div id="hrList"></div>
+    </section>
+
+    <!-- ============ TAB 9: SPEAKING ============ -->
+    <section class="tab" id="tab-speaking">
+      <h2 class="sec-title">Speaking — 60-Second Topics (50)</h2>
+      <p class="sec-desc">A topic is given and you must speak on it continuously for 60 seconds — no long pauses. Hit <b>Start 60s Timer</b> and speak out loud until it beeps, then hit <b>Record</b> to capture and play back your own attempt so you can hear how you sound. Reveal the model answer only after you've tried — it uses simple, formal English on purpose, so use it as a structure to copy, not to memorise word for word.</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="speakingProgText">0 / 50 mastered</span><span id="speakingProgPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="speakingProgFill"></div></div>
+      </div>
+      <div class="controls">
+        <input type="text" id="speakingSearch" placeholder="Search a topic…">
+        <label class="toggle"><input type="checkbox" id="speakingOnlyRemaining"> Remaining only</label>
+        <button class="btn-ghost" id="speakingReset">Reset progress</button>
+      </div>
+      <div id="speakingList"></div>
+    </section>
+
+    <!-- ============ TAB 10: MOCK TEST ============ -->
+    <section class="tab" id="tab-mocktest">
+      <h2 class="sec-title">Mock Test — AMCAT + Versant + Ops + HR</h2>
+      <p class="sec-desc">Simulates the real four-round Concentrix format, one round after another, each on its own countdown timer, with fresh randomized questions every time. Since most of these answers are open-ended, you self-grade honestly after each reveal — that's how the real mock rounds work too.</p>
+
+      <div id="mockSetup">
+        <div class="controls">
+          <button class="len-chip on" data-len="5">Quick — 20 Qs, ~20 min</button>
+          <button class="len-chip" data-len="10">Standard — 40 Qs, ~40 min</button>
+          <button class="len-chip" data-len="15">Full — 60 Qs, ~60 min</button>
+        </div>
+        <button class="reveal-btn" id="startMockBtn" style="margin-top:14px;">Start Mock Test</button>
+      </div>
+
+      <div id="mockRunning" style="display:none;">
+        <div class="progress-wrap">
+          <div class="progress-label"><span id="mockRoundLabel"></span><span id="mockTimer"></span></div>
+          <div class="progress-bar"><div class="progress-fill" id="mockRoundProgress"></div></div>
+        </div>
+        <div class="card" id="mockQuestionCard"></div>
+        <div class="controls" style="margin-top:10px;">
+          <button class="btn-ghost" id="mockFinishRoundBtn">Finish round early</button>
+          <button class="btn-ghost" id="mockQuitBtn">Quit test</button>
+        </div>
+      </div>
+
+      <div id="mockResults" style="display:none;"></div>
+    </section>
+
+  </main>
+
+  <footer class="note">Progress is saved automatically in this artifact. Good luck for the round.</footer>
+</div>
+
+<script>
+const FB = [
+{id:1,q:"She was awarded a promotion based on her excellent ___ on the job.",a:"performance",tag:"COLL",r:"Fixed pair \u2014 \u201Cbased on ... performance\u201D. Performance = how well she did her job."},
+{id:2,q:"If you want to meet with the CEO, you need to make an ___ in advance.",a:"appointment",tag:"COLL",r:"\u201CMake an appointment\u201D is the standard fixed phrase for scheduling a meeting."},
+{id:3,q:"It was a clear blue sky and the sun was ___.",a:"bright / shining",tag:"VOCAB",r:"Describes strong sunlight on a clear day \u2014 adjective (bright) or verb (shining) both work."},
+{id:4,q:"In cities with good public ___ it is hard to understand why people insist on driving to work.",a:"transport / transportation",tag:"VOCAB",r:"Compound noun for buses/trains \u2014 British (transport) and American (transportation) both accepted."},
+{id:5,q:"I am not sure if I can come tomorrow, I will have to ___ my schedule.",a:"check",tag:"COLL",r:"\u201CCheck my schedule\u201D = look at it to confirm availability. Repeated later as #44 \u2014 high-frequency phrase."},
+{id:6,q:"To ___ our first major success, we are going to throw a party.",a:"celebrate",tag:"VOCAB",r:"Matches the reason for throwing a party \u2014 marking an achievement."},
+{id:7,q:"Looks like this document has been edited already, is this the final ___?",a:"one / document / copy",tag:"CTX",r:"Refers back to \u201Cdocument\u201D mentioned earlier \u2014 any word substituting for it works. Repeated as #45."},
+{id:8,q:"For ___ about the product please consult the instruction manual.",a:"details / information",tag:"COLL",r:"\u201CFor details/information about\u201D is a standard request-info phrase."},
+{id:9,q:"The store had only been in business for two years, when the ___ sold it.",a:"owner",tag:"VOCAB",r:"The person who owns/ran the business before the sale."},
+{id:10,q:"Over 300 people ___ the store's grand opening.",a:"attended",tag:"COLL",r:"\u201CPeople attended [event]\u201D is the standard collocation for showing up."},
+{id:11,q:"My friend has lived in New York all his life, he took me on a personal ___ of the city.",a:"tour",tag:"COLL",r:"\u201CPersonal tour\u201D = a guided walk-through led by someone familiar with the place."},
+{id:12,q:"The class had to be ___ indefinitely because of the summer schedule.",a:"postponed",tag:"VOCAB",r:"Delayed to a later, unspecified time."},
+{id:13,q:"Even if you run very fast you probably ___ be able to catch the train, it's too late.",a:"won't",tag:"GRAM",r:"Future negative modal \u2014 fits \u201Cprobably ___ be able to,\u201D showing likely failure."},
+{id:14,q:"Please make sure all seatbelts are securely ___?",a:"fastened",tag:"COLL",r:"\u201CSeatbelts fastened\u201D is a fixed safety-instruction phrase. Repeated as #50."},
+{id:15,q:"I had to take out a ___ from the bank to cover the cost of replacing the roof of my house.",a:"loan",tag:"VOCAB",r:"Money borrowed from a bank \u2014 matches \u201Ctake out\u201D and \u201Ccover the cost.\u201D"},
+{id:16,q:"Lock your valuables in the ___ of the hotel room.",a:"locker",tag:"VOCAB",r:"Secure storage unit provided in a hotel room."},
+{id:17,q:"He is quite a handy man, he ___ old items and brings them back to usable condition.",a:"repairs / mends",tag:"VOCAB",r:"Fixes broken items \u2014 matches \u201Chandy man\u201D and \u201Cusable condition.\u201D"},
+{id:18,q:"Every summer, the neighboring town hosts a big event, which ___ hundreds of people.",a:"attracts",tag:"COLL",r:"\u201CEvent attracts people\u201D = draws a crowd."},
+{id:19,q:"The product is out of stock until the next ___ arrives.",a:"stock",tag:"VOCAB",r:"Repetition of the word \u2014 new supply is what's being awaited."},
+{id:20,q:"I ___ my clothes off at the drycleaners on my way to work this morning.",a:"dropped",tag:"COLL",r:"\u201CDrop off\u201D = phrasal verb for delivering something briefly along the way."},
+{id:21,q:"Finally, everything I had to do is finished, now that the project has reached ___.",a:"completion",tag:"COLL",r:"\u201CReached completion\u201D is a fixed phrase meaning finished."},
+{id:22,q:"It ___ to be seen whether the company will stay in business next year.",a:"has / needs / is",tag:"GRAM",r:"Fixed impersonal construction \u201Cit has/needs/is to be seen whether...\u201D = still uncertain."},
+{id:23,q:"He is running ___. He should have been here half an hour ago.",a:"late",tag:"CTX",r:"Matches \u201Cshould have been here half an hour ago.\u201D"},
+{id:24,q:"The new trainees are ___ along just fine.",a:"getting",tag:"COLL",r:"\u201CGetting along\u201D is a phrasal verb meaning to have a good relationship."},
+{id:25,q:"Let's ___ tomorrow's presentation until next week. I am just too busy to prepare for it right now.",a:"postpone",tag:"VOCAB",r:"Delay the event to a later date."},
+{id:26,q:"She was temporarily ___ by the brightness of the Sun.",a:"blinded / tanned",tag:"CTX",r:"Bright sunlight can temporarily impair sight (blinded) or affect skin (tanned)."},
+{id:27,q:"I am suffering from ___, it was an 8 hour flight and my body thinks it's 2 o'clock in the morning.",a:"jetlag",tag:"VOCAB",r:"Fixed term for fatigue/confusion from crossing time zones."},
+{id:28,q:"The baker had several ___ on his wrist, from the times he had touched the sides of the oven.",a:"burns",tag:"VOCAB",r:"Injury caused by touching something hot."},
+{id:29,q:"You can ___ the order as soon as you know what you want to purchase.",a:"place",tag:"COLL",r:"\u201CPlace an order\u201D is the fixed phrase for ordering something."},
+{id:30,q:"The event was ___ by an audience of over 30,000 people.",a:"attended",tag:"COLL",r:"Same pattern as #10 \u2014 a large audience showed up."},
+{id:31,q:"He is so concerned about the environment that I wasn't surprised when he told me that his shoes are made of ___ tyres.",a:"recycled / old",tag:"VOCAB",r:"Matches \u201Cconcerned about the environment\u201D \u2014 reused material."},
+{id:32,q:"Workers who have previously completed the training are ___ from the new training requirement.",a:"exempted",tag:"VOCAB",r:"Excused from a requirement because it's already been fulfilled."},
+{id:33,q:"We had made a ___ to go to Peru for our vacation, but we changed our minds at the last minute.",a:"plan",tag:"COLL",r:"\u201CMade a plan\u201D is the fixed phrase for deciding on an itinerary."},
+{id:34,q:"The employees of our factory must follow strict safety ___.",a:"guidelines",tag:"COLL",r:"\u201CSafety guidelines\u201D is a fixed compound noun for workplace rules."},
+{id:35,q:"If you want a hardworking and dependable employee, I ___ that you hire him.",a:"recommend",tag:"VOCAB",r:"Suggesting someone for hire, matching \u201Chardworking and dependable.\u201D"},
+{id:36,q:"Give regards ___ Anna and the kids.",a:"to",tag:"GRAM",r:"Fixed preposition in the phrase \u201Cgive regards to (someone).\u201D"},
+{id:37,q:"When you travel abroad you need to carry your passport or some form of ___.",a:"identification",tag:"VOCAB",r:"Official proof of identity (ID) required when travelling."},
+{id:38,q:"A recent study found gadgets like laptops, phones, cameras and other electronic ___ are popular amongst online shoppers.",a:"devices",tag:"VOCAB",r:"General category term covering laptops, phones, cameras."},
+{id:39,q:"When my bicycle got a flat ___ I had to take a train to work.",a:"tyre",tag:"VOCAB",r:"Part of a bicycle that goes flat."},
+{id:40,q:"When you cross a bridge you need to pay ___.",a:"attention",tag:"COLL",r:"\u201CPay attention\u201D is a fixed phrase for being alert/careful."},
+{id:41,q:"After the treatment, my sister is ___ just fine.",a:"recovering / feeling / doing",tag:"CTX",r:"Describes improving health after medical treatment."},
+{id:42,q:"I am a salesman, and you, what ___ you do?",a:"do",tag:"GRAM",r:"Fixed question form \u201Cwhat do you do?\u201D \u2014 asking about someone's occupation."},
+{id:43,q:"I am sorry I am late, I ___ up late this morning.",a:"woke",tag:"GRAM",r:"Past tense of \u201Cwake,\u201D matching \u201Cthis morning.\u201D"},
+{id:44,q:"I am not sure if I can come tomorrow, I will have to ___ my schedule.",a:"check",tag:"COLL",r:"Repeat of #5 \u2014 same fixed phrase, shows how often it's tested."},
+{id:45,q:"It looks like this document has been edited already, is this the final ___?",a:"one / document / copy",tag:"CTX",r:"Repeat of #7's pattern."},
+{id:46,q:"Don't forget to ___ for a receipt when you pay.",a:"ask",tag:"COLL",r:"\u201CAsk for a receipt\u201D is a fixed request phrase. Repeated as #81."},
+{id:47,q:"Since you have finished everything else for the ___ of the week, you can take an off tomorrow.",a:"rest",tag:"COLL",r:"\u201CThe rest of the week\u201D is a fixed phrase meaning the remaining days."},
+{id:48,q:"I wanted to buy the book but the book store did not have any in ___.",a:"stock",tag:"VOCAB",r:"\u201CIn stock\u201D = available for purchase."},
+{id:49,q:"Thank you very much for your help on such short ___, it helped us when time was running short.",a:"notice",tag:"COLL",r:"\u201CShort notice\u201D is a fixed phrase meaning little advance warning."},
+{id:50,q:"Please make sure that all seat belts are securely ___.",a:"fastened",tag:"COLL",r:"Repeat of #14."},
+{id:51,q:"Although sales were down last quarter the owner had high ___ that business will improve soon.",a:"hopes",tag:"COLL",r:"\u201CHigh hopes\u201D is a fixed phrase expressing strong optimism."},
+{id:52,q:"I know you love travelling abroad, would you be ___ in a position in our overseas office.",a:"interested",tag:"COLL",r:"\u201CInterested in a position\u201D is the fixed phrase for job interest."},
+{id:53,q:"We had plans to go hiking tomorrow, but due to weather conditions we had to come up with an ___ plan.",a:"alternate",tag:"VOCAB",r:"A backup/different plan \u2014 matches \u201Cdue to weather conditions.\u201D"},
+{id:54,q:"The amount of air pollution in this town has increased substantially ___ the factory opened.",a:"since / after",tag:"GRAM",r:"Time conjunction linking the pollution increase to when the factory opened."},
+{id:55,q:"The training program ___ a wide selection of courses to those students who are interested.",a:"offers",tag:"COLL",r:"\u201CProgram offers courses\u201D = provides/makes them available."},
+{id:56,q:"The residents were advised to evacuate their homes ___ the storm reached them.",a:"before",tag:"GRAM",r:"Time preposition \u2014 evacuation must happen prior to the storm's arrival."},
+{id:57,q:"The number of attendees far exceeded our expectation. The event site was very ___, it was not even easy to walk around.",a:"crowded",tag:"VOCAB",r:"Matches \u201Cfar exceeded expectations\u201D and \u201Cnot easy to walk around.\u201D"},
+{id:58,q:"Recent studies have shown that the shopping ___ of consumers have changed dramatically in the past ten years.",a:"preferences",tag:"VOCAB",r:"Plural to agree with \u201Chave changed\u201D \u2014 what people prefer to buy."},
+{id:59,q:"All of the city council members, with the ___ of one, voted against the new law.",a:"unity",tag:"VOCAB",r:"Acting as a single, united group in the vote."},
+{id:60,q:"She was a junior manager but now she has been ___ to a senior management position.",a:"promoted",tag:"VOCAB",r:"Moved up from junior to senior role."},
+{id:61,q:"I don't ___ what I wrote. I'm going to rewrite it completely.",a:"like / remember",tag:"CTX",r:"Matches \u201Cgoing to rewrite it completely\u201D \u2014 dissatisfaction or forgetting."},
+{id:62,q:"Negotiations came to a halt as leaders struggled to reach terms that were ___ to both parties.",a:"agreeable / acceptable",tag:"VOCAB",r:"Terms both sides can accept \u2014 matches \u201Creach terms.\u201D"},
+{id:63,q:"Because the company did not accept applications by mail, he had to ___ his application using the company's website.",a:"submit",tag:"COLL",r:"\u201CSubmit an application\u201D is the fixed phrase for sending in a form."},
+{id:64,q:"The library ___ the event by posting flyers throughout the city.",a:"promoted / advertised",tag:"COLL",r:"\u201CPromoted the event\u201D = advertised/publicized it (different sense from #60)."},
+{id:65,q:"The speaker at the conference was very interesting. I ___ his talk very much.",a:"liked / enjoyed",tag:"CTX",r:"Positive reaction to an interesting talk."},
+{id:66,q:"City buildings can only be so tall. The exact height will ___ on local regulations.",a:"depend",tag:"COLL",r:"\u201CDepend on regulations\u201D is a fixed phrase meaning determined by."},
+{id:67,q:"You need a parking ___ if you want to leave your car here.",a:"ticket",tag:"VOCAB",r:"Required document/permit to park a car."},
+{id:68,q:"His appearance had changed ___ much in the past five years, that I didn't even recognize him when I saw him.",a:"so",tag:"GRAM",r:"Intensifier in the fixed pattern \u201Cso ___ that.\u201D"},
+{id:69,q:"This is cutting ___ technology \u2014 it's the best on the market.",a:"edge",tag:"COLL",r:"\u201CCutting edge\u201D is a fixed idiom meaning most advanced."},
+{id:70,q:"You may not ___ with his methods, but there's no question that he makes a lot of money for the company.",a:"agree",tag:"COLL",r:"\u201CMay not agree with\u201D is a fixed phrase for disapproving of an approach."},
+{id:71,q:"I love pets. I'm a member of an ___ protection rights group and do volunteer work once a month.",a:"animal",tag:"VOCAB",r:"Matches \u201Cprotection rights group\u201D for pets/animals."},
+{id:72,q:"I couldn't believe it when he agreed to make an ___ on the show tonight.",a:"appearance",tag:"COLL",r:"\u201CMake an appearance\u201D is a fixed idiom meaning to show up publicly."},
+{id:73,q:"The police have been ___ the activity at that house for two months.",a:"monitoring / observing",tag:"VOCAB",r:"Observing activity closely over a period of time."},
+{id:74,q:"You can make ___ of this document in the print room. Make enough for ten people.",a:"copies",tag:"COLL",r:"\u201CMake copies\u201D is the fixed phrase for duplicating documents."},
+{id:75,q:"I was recently ___ from the Berlin office to the Tokyo office.",a:"moved / shifted / transferred",tag:"VOCAB",r:"Relocated from one office location to another."},
+{id:76,q:"In my company, it's the manager's job to divide work ___ the team members.",a:"among / amongst",tag:"GRAM",r:"Preposition for dividing something between three or more people."},
+{id:77,q:"He burned the oil and the ___ left a black mark above the stove.",a:"smoke",tag:"VOCAB",r:"Soot from smoke is what typically leaves a black mark/stain above a stove."},
+{id:78,q:"The broadcasting company is funded by the government. However, everybody who owns a television pays an annual license ___.",a:"fee",tag:"COLL",r:"\u201CLicense fee\u201D is a fixed compound noun for a required payment."},
+{id:79,q:"Some of my fondest memories are going fishing and setting up a ___ near a lake with my family.",a:"tent / camp",tag:"VOCAB",r:"Matches camping near a lake."},
+{id:80,q:"The city can be divided into two parts. The outer sections are ___ new, the historical city centre is rather old, indeed.",a:"fairly / quite / pretty / very / comparatively",tag:"GRAM",r:"Intensifier softening \u201Cnew,\u201D contrasted with \u201Crather old.\u201D"},
+{id:81,q:"Don't forget to ask for a ___ when you pay.",a:"receipt",tag:"COLL",r:"Repeat of #46's pattern \u2014 \u201Cask for a receipt.\u201D"},
+{id:82,q:"The company ___ its target last year and reported a profit.",a:"achieved / exceeded",tag:"COLL",r:"\u201CExceeded/achieved its target\u201D means it surpassed or met its goal."},
+{id:83,q:"A good policy is to always ___ to customer requests within 24 hours, otherwise they may get annoyed.",a:"respond",tag:"COLL",r:"\u201CRespond to requests\u201D is a fixed phrase for replying."},
+{id:84,q:"I can't ___ what it must be like having to do a task like this all day.",a:"imagine",tag:"VOCAB",r:"Matches \u201Ccan't ___ what it must be like.\u201D"},
+{id:85,q:"___ making one last modification to the layout, the newsletter was ready to be sent out.",a:"After",tag:"GRAM",r:"Time conjunction \u2014 the modification happens before the newsletter is sent."},
+{id:86,q:"All the ___ down behind my desk are tangled.",a:"wires",tag:"VOCAB",r:"Cables that get tangled behind a desk."},
+{id:87,q:"Her best-selling novel was ___ for several awards.",a:"nominated",tag:"COLL",r:"\u201CNominated for awards\u201D is the fixed phrase for award consideration."},
+{id:88,q:"I made several ___ to the store before I finally remembered to buy some more paper towels.",a:"trips",tag:"COLL",r:"\u201CMade several trips\u201D is the fixed phrase for repeated visits."},
+{id:89,q:"The department is responsible for the mistake so they will have to ___ the cost of the failure themselves.",a:"bear",tag:"COLL",r:"\u201CBear the cost\u201D is a fixed idiom meaning to take responsibility for payment."},
+{id:90,q:"My flight departed 10 minutes later than the scheduled time but arrived on ___ at the destination.",a:"time",tag:"COLL",r:"\u201CArrived on time\u201D = punctual, despite a late departure."},
+{id:91,q:"Please check all envelopes for the correct return ___.",a:"address",tag:"VOCAB",r:"Matches \u201Creturn ___\u201D on an envelope."},
+{id:92,q:"The man ___ his car keys and spent an hour looking for them this morning.",a:"misplaced / lost",tag:"VOCAB",r:"Matches \u201Cspent an hour looking for them.\u201D"},
+{id:93,q:"If you want to meet with the CEO you need to make an appointment weeks in ___.",a:"advance",tag:"COLL",r:"\u201CIn advance\u201D is a fixed phrase meaning ahead of time."},
+{id:94,q:"Before you drive over a bridge you have to pay the ___ at the booth.",a:"toll",tag:"VOCAB",r:"Fee paid at a booth before crossing certain bridges/roads."},
+{id:95,q:"The money was ___ among several people.",a:"divided / distributed",tag:"VOCAB",r:"Split between multiple people."},
+{id:96,q:"An increasing ___ of businesses have recently shut down due to the economic downturn.",a:"number",tag:"COLL",r:"\u201CAn increasing number of\u201D is a fixed quantifying phrase."},
+{id:97,q:"My sister is ___ from the surgery very well. The doctor told us that she should be able to go home next week.",a:"recovering",tag:"COLL",r:"\u201CRecovering from surgery\u201D \u2014 same pattern as #41's recovery phrase."},
+{id:98,q:"If you don't ___ the height requirement you are not allowed to get on the ride.",a:"meet",tag:"COLL",r:"\u201CMeet the requirement\u201D is a fixed phrase for satisfying a condition."},
+{id:99,q:"We offer our customers the ___ of placing orders by phone or online.",a:"option",tag:"COLL",r:"\u201COffer the option of\u201D is a fixed phrase for providing a choice."},
+{id:100,q:"She gets her supplies at a ___ rate because she buys in bulk.",a:"reasonable",tag:"VOCAB",r:"Describes a fair price \u2014 matches \u201Cbuys in bulk.\u201D"}
+];
+
+const DICT = [
+{t:"Don't we have her address on file?",w:1},
+{t:"Where are the pens we use to write on the board?",w:0},
+{t:"It's a good idea to create different versions of your resume.",w:1},
+{t:"We report any computer issue to technical support.",w:0},
+{t:"It's important to follow up after a job interview.",w:0},
+{t:"What if I caught a later train?",w:0},
+{t:"I will be back in the middle of September.",w:0},
+{t:"I hope he doesn't get there late.",w:0},
+{t:"Wouldn't it be easier to do this online?",w:1},
+{t:"The plan will be drawn up tomorrow morning when everyone is together.",w:0},
+{t:"They are concerned not only with the cost but also with the competition.",w:0},
+{t:"Please note that our phone and fax number will remain the same.",w:0},
+{t:"Please spell check all reports before turning them in.",w:0},
+{t:"Every year your supervisor will evaluate your progress.",w:0},
+{t:"Please notify your supervisor if you are running late.",w:0},
+{t:"Could you tell me how many people are coming to the reception?",w:0},
+{t:"I am leaving in early June.",w:0},
+{t:"I will be finished by Friday.",w:0},
+{t:"You work on Monday?",w:0},
+{t:"We're breaking for lunch.",w:1},
+{t:"You must have been so pleased.",w:1},
+{t:"The document needs to be edited.",w:0},
+{t:"Eric filled out the form by hand because the system was down.",w:0},
+{t:"Why didn't you ask him to leave a message?",w:1},
+{t:"Many have seen their salary cut.",w:0},
+{t:"The company first opened when I was much younger.",w:0},
+{t:"I wish we didn't have to work that night.",w:1},
+{t:"Many companies operate in more than one country.",w:0},
+{t:"I wish you had raised the issue earlier.",w:1},
+{t:"They told me I'd have to pay before the class begins.",w:1},
+{t:"I can book us a table at a good Italian restaurant.",w:0},
+{t:"The company has grown too large over the past few years.",w:0},
+{t:"I am doing research, but I can't locate a book I need.",w:1},
+{t:"Let's come up with a cost-effective solution.",w:0},
+{t:"There are various tax incentives available to you and your employees.",w:0},
+{t:"David is taking next week off to travel with his family.",w:0},
+{t:"They are in the Middle East.",w:0},
+{t:"Sales of new vehicles have been up this month.",w:0},
+{t:"Please reply to this email if you are attending the seminar.",w:0},
+{t:"I need volunteers for the weekend seminar.",w:0},
+{t:"Inflation affects all small businesses.",w:0},
+{t:"What is the balance on the company's credit card?",w:1},
+{t:"The company may have to relocate.",w:0},
+{t:"The proposal is finished.",w:0},
+{t:"When sales were down, we caught up with our filing.",w:0},
+{t:"They presented a plan to reduce a large debt.",w:0},
+{t:"I wish you had raised the issue.",w:1},
+{t:"It won't turn around overnight.",w:1},
+{t:"I am going with you, aren't I?",w:1},
+{t:"Thanks for sending the rough draft.",w:0},
+{t:"Inflation affects all small businesses.",w:0},
+{t:"He would always come late to the meetings.",w:0},
+{t:"The rate of inflation has increased this month.",w:0},
+{t:"Let's put our heads together and come up with a solution.",w:0},
+{t:"The new intern has a lot to learn about this company.",w:0},
+{t:"According to the weather forecast it's going to be really hot this weekend.",w:1},
+{t:"When do you expect him to return to the office?",w:0},
+{t:"I'll have finished the report by then.",w:1},
+{t:"The speeding system was just repaired.",w:0},
+{t:"He would always come late to the meetings.",w:0},
+{t:"Could you recommend some good hotels.",w:0},
+{t:"We have agreed on all the major points.",w:0},
+{t:"The store plans to hire some temporary employees.",w:0},
+{t:"Speak with my assistant and she will schedule you.",w:0},
+{t:"We need to make sure that our department is ready for inspection.",w:0},
+{t:"I need a hotel near the airport because I am arriving late.",w:0},
+{t:"He stays healthy by eating well and exercising often.",w:0},
+{t:"Where are the colored papers we use to make the brochures?",w:0},
+{t:"He forgot to bring money for an admission ticket.",w:0},
+{t:"Employers generally look for strong technical skills.",w:0}
+];
+
+const EMAIL_TOPICS = [
+{n:1,body:"Your co-worker Anna has finished an important project. Write to your manager, Mr. Henderson, recognising her as an excellent employee.",themes:["work habits","new ideas","customer satisfaction"],
+a:"Dear Mr. Henderson,\n\nI'd like to nominate Anna for our employee recognition program following her excellent work on the recent project.\n\nHer work habits are exemplary \u2014 she consistently meets deadlines and sets a strong example for the team. She also brought several new ideas that helped streamline our process. Finally, her customer satisfaction scores remain consistently high thanks to her professionalism with clients.\n\nI believe she's a strong candidate for this recognition. Happy to discuss further.\n\nThanks & Regards,"},
+{n:2,body:"You and your co-workers want approval from your supervisor, Mr. Wilson, to organise a company picnic. Write explaining why the company should host one.",themes:["new employees","extra money","team building"],
+a:"Dear Mr. Wilson,\n\nI'd like to propose that we organize a company picnic this year, and wanted to share a few reasons why.\n\nIt would be a great way to welcome our new employees and help them get to know the team outside of work. It also wouldn't require a large budget, as we can keep the event simple and cost-effective. Most importantly, it would strengthen team building across departments, which benefits our day-to-day collaboration.\n\nPlease let me know if you'd like to discuss the details.\n\nThanks & Regards,"},
+{n:3,body:"Your co-worker Thomas is very busy. Write suggesting three things he could do to manage his time better.",themes:["to-do list","tasks ordered by importance","daily progress review"],
+a:"Hi Thomas,\n\nI understand things have gotten hectic lately \u2014 here are three things that might help.\n\nFirst, try keeping a daily to-do list so nothing slips through the cracks. Second, order your tasks by importance rather than by when they arrived, so the highest-impact work gets done first. Third, do a quick progress review at the end of each day to adjust tomorrow's plan.\n\nHappy to talk through this more if it helps.\n\nBest,"},
+{n:4,body:"The HR representative, Ms. Wilson, has asked for suggestions on using extra property space. Write providing your suggestions.",themes:["caf\u00e9","on-site gym","flower garden"],
+a:"Hello Ms. Wilson,\n\nThanks for asking for input on how to use the extra property space \u2014 here are a few suggestions.\n\nA small on-site caf\u00e9 would give employees a convenient place to take breaks without leaving the building. An on-site gym could support employee wellness and reduce sick days over time. A flower garden would also improve the overall appearance of the property and give people a calm outdoor space to unwind.\n\nHappy to discuss any of these further.\n\nThanks & Regards,"},
+{n:5,body:"Your office doesn't have good security. Write to HR (Mr. Smith) suggesting ways to improve it.",themes:["identification card","security guard","video monitoring"],
+a:"Dear Mr. Smith,\n\nI wanted to share a few suggestions for improving our office security.\n\nIssuing identification cards for all employees would help control building access more reliably. Having a security guard at the main entrance would add a visible layer of protection. Video monitoring in common areas would also help deter incidents and provide a record if anything does happen.\n\nLet me know if you'd like to discuss implementation.\n\nThanks & Regards,"},
+{n:6,body:"Your furniture company received a bulk order and the manager, David, thinks the target won't be met in time. Write suggesting how he can complete it.",themes:["working hours","new equipment","hiring new people"],
+a:"Hi David,\n\nI understand we're behind on the bulk order, and wanted to suggest a few ways to get back on track.\n\nExtending working hours temporarily could help us close the gap quickly. Investing in new equipment could also speed up our current production bottleneck. If neither is enough on its own, hiring a few temporary workers could help us meet the deadline without overworking the current team.\n\nHappy to help plan whichever approach works best.\n\nBest,"},
+{n:7,body:"Employees currently share computers. Write to your team leader, Mr. Campbell, giving reasons each employee should get their own laptop.",themes:["meeting new customers","working from home","staying connected while travelling"],
+a:"Dear Mr. Campbell,\n\nI'd like to suggest that each employee be provided with their own laptop, for a few reasons.\n\nIt would make it much easier to meet with customers on the go without needing to book a shared machine. It would also support working from home more smoothly when needed. Lastly, it would help employees stay connected while traveling for work, which is increasingly common for our team.\n\nHappy to discuss the cost and rollout plan.\n\nThanks & Regards,"},
+{n:8,body:"You bought computers from a costlier overseas company instead of a cheaper local one. Your supervisor, Mr. Wayne, wants to know why. Write explaining your reasoning.",
+a:"Dear Mr. Wayne,\n\nI wanted to explain my reasoning for purchasing the computers from the overseas company instead of the cheaper local option.\n\nWhile the local company had a lower price, the overseas supplier offered better build quality, a longer warranty period, and more reliable after-sales support \u2014 which I believed would save us money in maintenance and downtime over time.\n\nHappy to walk through the comparison in more detail if useful.\n\nThanks & Regards,"}
+];
+
+const PASSAGES = [
+{orig:"As I told you at our last meeting, I am moving on to a new position in another company next week. My last working day is Friday, January 25th. Thanks for being such a great team! I will miss you all and hope you will stay in touch.",
+recon:"I told you at our last meeting that I'll be moving to a new position at another company next week. My last day here will be this Friday, January 25th. Thank you for being such a great team to work with \u2014 I'll miss you all.",
+tech:"Move: reordered the opening clause, swapped \u201Cmoving on\u201D \u2192 \u201Cmoving to a new position,\u201D kept the exact date intact."},
+
+{orig:"I'm sorry about all the confusion regarding your pay rate. Unfortunately, our budget has been cut and so we've had to reduce the amount that we can offer. I hope this clears things up but do come back to me if you'd like more information.",
+recon:"We're sorry for the confusion about your pay rate. Because our budget was cut, we've had to reduce what we can offer. Please get back to me if you need any further clarification.",
+tech:"Move: \u201Cunfortunately... and so\u201D \u2192 \u201Cbecause,\u201D combined two clauses into one cause-effect sentence, kept the core reason (budget cut) intact."},
+
+{orig:"Anna picked up her suit from the dry cleaners. After she had paid, she noticed that the cleaners had not cleaned the suit properly. She politely brought this to their attention, and requested a refund. Although the cleaner apologized, he said that it was not his fault, and refused to give Anna a refund.",
+recon:"Anna picked up her clothes from the dry cleaner and noticed they hadn't been cleaned properly. She politely pointed this out and asked for a refund. The dry cleaner apologised but said it wasn't his fault, and refused to give her one.",
+tech:"Move: \u201Cbrought this to their attention\u201D \u2192 \u201Cpointed this out,\u201D kept the sequence of events (pickup \u2192 notice \u2192 complaint \u2192 refusal) in the same order."},
+
+{orig:"After working for thirty years as a salesperson, James decided to retire. The first few weeks of his retired life were fine. He relaxed and spent a lot of time reading. After a month, he started to get bored. He decided to volunteer at the local animal rescue center. He loved working with the animals, and was glad to have a scheduled activity to do each day.",
+recon:"After thirty years as a salesperson, James decided to retire. His first few weeks went well \u2014 he relaxed and read a lot. A month later he grew bored, so he began volunteering at the local animal rescue centre. He loved working with the animals and enjoyed having a daily activity.",
+tech:"Move: combined short sentences, swapped \u201Cscheduled activity\u201D \u2192 \u201Cdaily activity,\u201D kept the timeline (30 years \u2192 few weeks \u2192 one month \u2192 volunteering) intact."},
+
+{orig:"Employees are reminded that the last person to leave the office should make sure that all windows and doors are locked. If you are staying after regular working hours, please walk around to check if anyone else is still in the office. If there is someone else other than yourself, please let that person know that you are leaving. Thank you for your cooperation in this matter.",
+recon:"All employees are reminded that the last person to leave must make sure the windows and doors are locked. If you're staying late, check whether anyone else is still in the office, and if so, let them know you're leaving.",
+tech:"Move: combined the two conditional sentences into one, swapped \u201Cregular working hours\u201D \u2192 \u201Clate,\u201D kept the instruction (check \u2192 inform) in sequence."},
+
+{orig:"We regret to inform you that your application for the marketing position has not been successful this time. However, we were impressed by your qualifications and would like to keep your resume on file for any future openings that may be a better match.",
+recon:"We're sorry to let you know that you weren't selected for the marketing role this time. That said, your qualifications stood out to us, and we'd like to keep your resume on file in case a better-suited opening comes up later.",
+tech:"Move: swapped \u201Cregret to inform\u201D \u2192 \u201Csorry to let you know,\u201D reordered the closing clause, kept the core outcome \u2014 rejection plus resume kept on file \u2014 intact."},
+
+{orig:"Due to unforeseen circumstances, tomorrow's staff meeting has been rescheduled to next Wednesday at the same time. We apologize for any inconvenience this may cause and appreciate your flexibility.",
+recon:"Because of unexpected circumstances, tomorrow's staff meeting has been moved to next Wednesday at the same time. We're sorry for any inconvenience and thank you for being flexible.",
+tech:"Move: \u201Cdue to\u201D \u2192 \u201Cbecause of,\u201D \u201Crescheduled\u201D \u2192 \u201Cmoved,\u201D combined the apology and thanks into one clause, kept the new date and time exact."},
+
+{orig:"The customer called in to complain that the product she had ordered arrived damaged. After verifying her order details, the representative offered her a full refund and arranged for a replacement to be shipped free of charge.",
+recon:"A customer contacted support because her order had arrived damaged. Once the representative confirmed her order details, she was given a full refund and a free replacement was arranged.",
+tech:"Move: active \u2192 passive voice shift (\u201Cwas given,\u201D \u201Cwas arranged\u201D), reordered the verification clause before the resolution, kept both outcomes \u2014 refund and free replacement \u2014 intact."},
+
+{orig:"As part of our ongoing efforts to improve customer service, all employees are required to complete a mandatory training session on communication skills by the end of this month.",
+recon:"To keep improving our customer service, every employee must finish a required communication skills training session before this month ends.",
+tech:"Move: swapped \u201Cas part of our ongoing efforts\u201D \u2192 \u201Cto keep improving,\u201D combined two clauses into one, kept the deadline exact."},
+
+{orig:"The manager announced that due to budget constraints, the company would not be able to offer year-end bonuses this year, but promised to revisit the policy once revenue improved.",
+recon:"Because of budget constraints, the manager announced that year-end bonuses wouldn't be possible this year, though the policy would be reconsidered once revenue picked up.",
+tech:"Move: reordered the reason clause to the front, \u201Cnot be able to offer\u201D \u2192 \u201Cwouldn't be possible,\u201D \u201Crevisit\u201D \u2192 \u201Creconsidered,\u201D kept both facts \u2014 no bonus this year, future reconsideration \u2014 intact."},
+
+{orig:"Please be advised that the office will remain closed on Monday in observance of the public holiday, and normal operations will resume on Tuesday morning.",
+recon:"The office will be closed on Monday for the public holiday, and things will get back to normal on Tuesday morning.",
+tech:"Move: dropped the formal opener \u201Cplease be advised that,\u201D \u201Cin observance of\u201D \u2192 \u201Cfor,\u201D \u201Cresume normal operations\u201D \u2192 \u201Cget back to normal,\u201D kept both dates unchanged."},
+
+{orig:"The IT department has identified a security vulnerability in the current software and recommends that all employees update their passwords immediately as a precaution.",
+recon:"IT found a security issue in the current software and is asking all employees to change their passwords right away, just to be safe.",
+tech:"Move: \u201Cidentified a vulnerability\u201D \u2192 \u201Cfound a security issue,\u201D \u201Crecommends\u201D \u2192 \u201Cis asking,\u201D \u201Cimmediately as a precaution\u201D \u2192 \u201Cright away, just to be safe,\u201D kept the urgency and instruction intact."},
+
+{orig:"After reviewing the quarterly figures, the finance team concluded that overall expenses had risen by twelve percent, mainly due to higher shipping costs.",
+recon:"The finance team looked at the quarterly numbers and found that expenses had gone up by twelve percent overall, largely because shipping costs had increased.",
+tech:"Move: \u201Creviewing\u201D \u2192 \u201Clooked at,\u201D \u201Cconcluded\u201D \u2192 \u201Cfound,\u201D reordered the cause clause, kept the exact figure (twelve percent) unchanged."},
+
+{orig:"The new employee handbook outlines updated guidelines on remote work, expense reporting, and paid time off, and all staff are expected to review it within two weeks of joining.",
+recon:"The updated employee handbook covers new rules on remote work, expenses, and paid time off, and new staff need to go through it within their first two weeks.",
+tech:"Move: \u201Coutlines\u201D \u2192 \u201Ccovers,\u201D \u201Cexpected to review\u201D \u2192 \u201Cneed to go through,\u201D reordered the timing clause, kept all three topics and the two-week window intact."},
+
+{orig:"The vendor apologized for the delayed shipment and assured us that the missing items would be delivered within three business days at no extra cost.",
+recon:"The vendor said sorry for the shipment delay and promised the missing items would arrive within three business days, free of charge.",
+tech:"Move: \u201Capologized\u201D \u2192 \u201Csaid sorry,\u201D \u201Cassured us\u201D \u2192 \u201Cpromised,\u201D \u201Cat no extra cost\u201D \u2192 \u201Cfree of charge,\u201D kept the exact timeframe (three business days) intact."},
+
+{orig:"Employees who wish to take unpaid leave must submit a written request to their supervisor at least two weeks in advance, along with a brief explanation of the reason.",
+recon:"Anyone wanting to take unpaid leave needs to send a written request to their supervisor at least two weeks ahead, along with a short reason.",
+tech:"Move: \u201Cemployees who wish\u201D \u2192 \u201Canyone wanting,\u201D \u201Cin advance\u201D \u2192 \u201Cahead,\u201D \u201Cbrief explanation\u201D \u2192 \u201Cshort reason,\u201D kept the two-week requirement exact."},
+
+{orig:"The support team resolved the majority of tickets within the first hour, though a handful of complex cases required escalation to a senior technician.",
+recon:"Most tickets were resolved by the support team within the first hour, but a few complicated cases had to be escalated to a senior technician.",
+tech:"Move: active \u2192 passive shift for the first clause, \u201Ca handful of\u201D \u2192 \u201Ca few,\u201D \u201Crequired escalation\u201D \u2192 \u201Chad to be escalated,\u201D kept the timeframe and escalation detail intact."},
+
+{orig:"Management has decided to extend the trial period for the new scheduling software by another month, in order to gather more feedback from the operations team.",
+recon:"Management decided to give the new scheduling software's trial period one more month, so they can collect more feedback from the operations team.",
+tech:"Move: \u201Cextend...by another month\u201D \u2192 \u201Cgive...one more month,\u201D \u201Cin order to gather\u201D \u2192 \u201Cso they can collect,\u201D kept the exact duration and purpose intact."},
+
+{orig:"The client expressed dissatisfaction with the turnaround time on their last order and requested a meeting to discuss ways to speed up the process going forward.",
+recon:"The client wasn't happy with how long their last order took and asked for a meeting to talk about speeding things up in the future.",
+tech:"Move: \u201Cexpressed dissatisfaction with the turnaround time\u201D \u2192 \u201Cwasn't happy with how long...took,\u201D \u201Crequested\u201D \u2192 \u201Casked for,\u201D kept the request for a meeting and its purpose intact."},
+
+{orig:"Following the merger, both teams will operate under a single reporting structure, and employees will receive further details about their new roles by the end of the week.",
+recon:"After the merger, both teams will report to a single structure, and staff will get more details about their new roles before the week is out.",
+tech:"Move: \u201Cfollowing\u201D \u2192 \u201Cafter,\u201D \u201Coperate under\u201D \u2192 \u201Creport to,\u201D \u201Cby the end of the week\u201D \u2192 \u201Cbefore the week is out,\u201D kept the reporting change and timing intact."}
+];
+
+const AMCAT = [
+{id:1,tag:"QUANT",q:"If a price is increased by 25% and then decreased by 20%, what is the net change?",a:"No change (0%)",r:"100 \u2192 +25% = 125 \u2192 \u221220% of 125 = 100. Net = 0%."},
+{id:2,tag:"QUANT",q:"A shopkeeper sold an item after a 20% discount for \u20B9640. What was the original price?",a:"\u20B9800",r:"Reverse %: original \u00D7 0.8 = 640 \u2192 original = 800."},
+{id:3,tag:"QUANT",q:"After a 15% pay hike, an employee earns \u20B946,000. What was the salary before the hike?",a:"\u20B940,000",r:"x \u00D7 1.15 = 46,000 \u2192 x = 40,000."},
+{id:4,tag:"QUANT",q:"A number increased by 40% gives 210. Find the number.",a:"150",r:"x \u00D7 1.4 = 210 \u2192 x = 150."},
+{id:5,tag:"QUANT",q:"A student scored 72% and got 324 marks. What is the maximum marks?",a:"450",r:"0.72x = 324 \u2192 x = 450."},
+{id:6,tag:"QUANT",q:"If 30% of a number is 45, what is 60% of the same number?",a:"90",r:"30% = 45 \u2192 number = 150; 60% of 150 = 90."},
+{id:7,tag:"QUANT",q:"A price after 10% tax is \u20B9550. Find the price before tax.",a:"\u20B9500",r:"x \u00D7 1.10 = 550 \u2192 x = 500."},
+{id:8,tag:"QUANT",q:"A town's population decreased by 10% this year to 45,000. Find last year's population.",a:"50,000",r:"x \u00D7 0.9 = 45,000 \u2192 x = 50,000."},
+{id:9,tag:"QUANT",q:"A trader bought goods for \u20B92,000 and sold them for \u20B92,400. Find profit percentage.",a:"20%",r:"Profit = 400; 400/2000 \u00D7 100 = 20%."},
+{id:10,tag:"QUANT",q:"A shopkeeper marks an item 40% above cost price and gives a 10% discount. Find his profit percentage.",a:"26%",r:"CP=100, MP=140, SP=140\u00D70.9=126 \u2192 profit = 26%."},
+{id:11,tag:"QUANT",q:"Two numbers are in ratio 3:5. If their sum is 96, find the larger number.",a:"60",r:"3x+5x=96 \u2192 x=12; larger = 5\u00D712 = 60."},
+{id:12,tag:"QUANT",q:"The average of 5 numbers is 42. Excluding one number, the average of the remaining 4 is 40. Find the excluded number.",a:"50",r:"Sum(5)=210, Sum(4)=160 \u2192 excluded = 50."},
+{id:13,tag:"QUANT",q:"A can finish a task in 12 days, B in 18 days. Working together, how many days will they take?",a:"7.2 days",r:"Combined rate = 1/12+1/18 = 5/36 \u2192 time = 36/5 = 7.2 days."},
+{id:14,tag:"QUANT",q:"A train travels 300 km in 5 hours. Find its speed.",a:"60 km/h (~16.67 m/s)",r:"Speed = distance/time = 300/5 = 60 km/h."},
+{id:15,tag:"QUANT",q:"A car covers a distance in 4 hours at 60 km/h. What speed is needed to cover the same distance in 3 hours?",a:"80 km/h",r:"Distance = 240 km; new speed = 240/3 = 80 km/h."},
+{id:16,tag:"QUANT",q:"Find the Simple Interest on \u20B98,000 at 9% per annum for 2 years.",a:"\u20B91,440",r:"SI = P\u00D7R\u00D7T/100 = 8000\u00D79\u00D72/100 = 1,440."},
+{id:17,tag:"QUANT",q:"Find the Compound Interest on \u20B910,000 at 10% per annum for 2 years.",a:"\u20B92,100",r:"A = 10000\u00D71.1\u00B2 = 12,100; CI = 2,100."},
+{id:18,tag:"QUANT",q:"A number is first increased by 20% then reduced by 20%. What is the overall % change?",a:"\u22124% (net decrease)",r:"100\u00D71.2=120; 120\u00D70.8=96 \u2192 change = \u22124%."},
+{id:19,tag:"QUANT",q:"3/4 of a number is 15 more than 1/2 of the number. Find the number.",a:"60",r:"3x/4 \u2212 x/2 = 15 \u2192 x/4 = 15 \u2192 x = 60."},
+{id:20,tag:"QUANT",q:"An item is sold at \u20B9720 after two successive discounts of 20% and 10% on the marked price. Find the marked price.",a:"\u20B91,000",r:"MP\u00D70.8\u00D70.9 = 720 \u2192 MP\u00D70.72 = 720 \u2192 MP = 1,000."},
+{id:21,tag:"LOGIC",q:"Find the next number: 2, 6, 12, 20, 30, ?",a:"42",r:"Differences: 4,6,8,10,12 \u2192 next = 30+12 = 42."},
+{id:22,tag:"LOGIC",q:"Find the next number: 5, 11, 23, 47, ?",a:"95",r:"Pattern: \u00D72 +1 each time \u2192 47\u00D72+1 = 95."},
+{id:23,tag:"LOGIC",q:"Find the next number: 3, 9, 27, 81, ?",a:"243",r:"\u00D73 each time \u2192 81\u00D73 = 243."},
+{id:24,tag:"LOGIC",q:"Find the next number: 1, 4, 9, 16, 25, ?",a:"36",r:"Perfect squares (1\u00B2,2\u00B2,3\u00B2...) \u2192 6\u00B2 = 36."},
+{id:25,tag:"LOGIC",q:"Find the next number: 7, 14, 28, 56, ?",a:"112",r:"\u00D72 each time \u2192 56\u00D72 = 112."},
+{id:26,tag:"LOGIC",q:"If CAT is coded by alphabet position as 3-1-20, how is DOG coded?",a:"4-15-7",r:"D=4, O=15, G=7."},
+{id:27,tag:"LOGIC",q:"If each letter is shifted forward by 1 (A\u2192B), HOUSE becomes IPVTF. Using the same rule, decode GJSF.",a:"FIRE",r:"Shift each letter back by 1: G\u2192F, J\u2192I, S\u2192R, F\u2192E."},
+{id:28,tag:"LOGIC",q:"\"She is the daughter of my grandfather's only son.\" How is she related to the speaker (assuming the speaker is not the only son)?",a:"She is his sister",r:"Grandfather's only son = speaker's father; the daughter of the speaker's father is his sister."},
+{id:29,tag:"LOGIC",q:"A is B's brother. C is A's mother. D is C's father. How is D related to B?",a:"D is B's grandfather",r:"C is mother of both A and B (siblings) \u2192 D (C's father) is B's grandfather."},
+{id:30,tag:"LOGIC",q:"Raj walks 5 km North, turns right and walks 3 km, then turns right again and walks 5 km. How far and in which direction is he from the start?",a:"3 km, East",r:"North 5 and South 5 cancel out; only the 3 km East leg remains."},
+{id:31,tag:"LOGIC",q:"\"All pens are markers. Some markers are red.\" Is the conclusion \"Some pens are red\" valid?",a:"Invalid",r:"Classic syllogism trap \u2014 it can't be conclusively derived from the two statements given."},
+{id:32,tag:"LOGIC",q:"Find the next letter: A, C, F, J, O, ?",a:"U",r:"Gaps increase by 1 each time (+2,+3,+4,+5,+6) \u2192 O+6 = U."},
+{id:33,tag:"LOGIC",q:"Odd one out: Apple, Mango, Potato, Banana",a:"Potato",r:"It's a vegetable; the others are fruits."},
+{id:34,tag:"LOGIC",q:"If 1=A, 2=B, 3=C... decode 19-8-15-16",a:"SHOP",r:"19=S, 8=H, 15=O, 16=P."},
+{id:35,tag:"LOGIC",q:"Find the next number: 100, 90, 81, 73, ?",a:"66",r:"Differences: 10,9,8,7,6 \u2192 73\u22126 = 66."},
+{id:36,tag:"VERBAL",q:"Give a synonym for ABANDON.",a:"Desert / Forsake",r:"To leave completely, often suddenly."},
+{id:37,tag:"VERBAL",q:"Give a synonym for CANDID.",a:"Frank / Honest",r:"Speaking openly and truthfully."},
+{id:38,tag:"VERBAL",q:"Give a synonym for DILIGENT.",a:"Hardworking / Industrious",r:"Showing steady, careful effort."},
+{id:39,tag:"VERBAL",q:"Give a synonym for AMPLE.",a:"Abundant / Sufficient",r:"More than enough."},
+{id:40,tag:"VERBAL",q:"Give a synonym for CONCISE.",a:"Brief / Succinct",r:"Short and clear, no extra words."},
+{id:41,tag:"VERBAL",q:"Give an antonym for GENEROUS.",a:"Stingy / Miserly",r:"Unwilling to give or spend."},
+{id:42,tag:"VERBAL",q:"Give an antonym for TRANSPARENT.",a:"Opaque",r:"Not able to be seen through."},
+{id:43,tag:"VERBAL",q:"Give an antonym for OPTIMISTIC.",a:"Pessimistic",r:"Expecting the worst outcome."},
+{id:44,tag:"VERBAL",q:"Give an antonym for RELUCTANT.",a:"Willing / Eager",r:"Ready and happy to do something."},
+{id:45,tag:"VERBAL",q:"Give an antonym for EXPAND.",a:"Contract / Shrink",r:"To become smaller."},
+{id:46,tag:"VERBAL",q:"Correct the error: \"Each of the employees have submitted their report.\"",a:"\"Each of the employees has submitted their report.\"",r:"\u201CEach\u201D is always singular, even when followed by a plural noun (of the employees) \u2014 the verb must be \u201Chas.\u201D"},
+{id:47,tag:"VERBAL",q:"Correct the error: \"Neither of the answers are correct.\"",a:"\"Neither of the answers is correct.\"",r:"\u201CNeither\u201D (like \u201Ceither\u201D) takes a singular verb \u2014 \u201Cis,\u201D not \u201Care.\u201D"},
+{id:48,tag:"VERBAL",q:"Correct the error: \"Everyone in the office are required to attend the meeting.\"",a:"\"Everyone in the office is required to attend the meeting.\"",r:"\u201CEveryone,\u201D \u201Csomeone,\u201D \u201Cno one\u201D are singular indefinite pronouns \u2014 always paired with \u201Cis/has/was.\u201D"},
+{id:49,tag:"VERBAL",q:"Correct the error: \"None of the information were useful.\"",a:"\"None of the information was useful.\"",r:"\u201Cinformation\u201D is uncountable and \u201Cnone\u201D here is treated as singular \u2014 use \u201Cwas.\u201D"},
+{id:50,tag:"VERBAL",q:"Correct the error: \"Either of the two options work for me.\"",a:"\"Either of the two options works for me.\"",r:"\u201CEither\u201D is singular regardless of the plural noun that follows it \u2014 use \u201Cworks.\u201D"}
+];
+
+const VERSANT = [
+{id:1,tag:"BUILD",q:"customer / the / satisfied / was / with / service / the",a:"The customer was satisfied with the service."},
+{id:2,tag:"BUILD",q:"please / for / a / moment / hold",a:"Please hold for a moment."},
+{id:3,tag:"BUILD",q:"issue / your / soon / resolve / we / will",a:"We will resolve your issue soon."},
+{id:4,tag:"BUILD",q:"assist / how / today / I / may / you",a:"How may I assist you today?"},
+{id:5,tag:"BUILD",q:"apologize / the / inconvenience / for / we",a:"We apologize for the inconvenience."},
+{id:6,tag:"BUILD",q:"account / your / verify / let / me",a:"Let me verify your account."},
+{id:7,tag:"BUILD",q:"shortly / call / back / you / I / will",a:"I will call you back shortly."},
+{id:8,tag:"BUILD",q:"details / could / your / confirm / you / please",a:"Could you please confirm your details?"},
+{id:9,tag:"BUILD",q:"team / escalate / to / the / this / I'll",a:"I'll escalate this to the team."},
+{id:10,tag:"BUILD",q:"patience / thank / your / for / you",a:"Thank you for your patience."},
+{id:11,tag:"BUILD",q:"help / is / else / there / anything / I / can / with",a:"Is there anything else I can help with?"},
+{id:12,tag:"BUILD",q:"raised / a / ticket / have / I",a:"I have raised a ticket."},
+{id:13,tag:"BUILD",q:"days / within / refund / three / processed / your / will / be",a:"Your refund will be processed within three days."},
+{id:14,tag:"BUILD",q:"understand / your / I / frustration",a:"I understand your frustration."},
+{id:15,tag:"BUILD",q:"policy / our / update / company / recently / did / the",a:"The company recently updated our policy."},
+{id:16,tag:"BUILD",q:"trouble / having / are / you / logging / in",a:"Are you having trouble logging in?"},
+{id:17,tag:"BUILD",q:"information / correct / that / is",a:"That information is correct."},
+{id:18,tag:"BUILD",q:"supervisor / speak / to / like / a / would / I",a:"I would like to speak to a supervisor."},
+{id:19,tag:"BUILD",q:"shift / night / I / work / can",a:"I can work night shift."},
+{id:20,tag:"BUILD",q:"concern / bringing / for / this / thank / you / to / our / attention",a:"Thank you for bringing this to our attention."},
+{id:21,tag:"COMPLETE",q:"I ___ (call) you back as soon as possible.",a:"will call"},
+{id:22,tag:"COMPLETE",q:"She has been working here ___ 2019.",a:"since"},
+{id:23,tag:"COMPLETE",q:"If I ___ (know) the answer, I would tell you.",a:"knew"},
+{id:24,tag:"COMPLETE",q:"By the time you arrive, I ___ (finish) the report.",a:"will have finished"},
+{id:25,tag:"COMPLETE",q:"He asked me ___ I could help him.",a:"if / whether"},
+{id:26,tag:"COMPLETE",q:"The customer wants to know ___ the refund will be processed.",a:"when"},
+{id:27,tag:"COMPLETE",q:"I'm sorry ___ the delay.",a:"for"},
+{id:28,tag:"COMPLETE",q:"We look forward ___ hearing from you.",a:"to"},
+{id:29,tag:"COMPLETE",q:"Could you tell me ___ the office is located?",a:"where"},
+{id:30,tag:"COMPLETE",q:"He has worked here ___ five years.",a:"for"},
+{id:31,tag:"COMPLETE",q:"I would appreciate it if you ___ (send) the documents today.",a:"sent / could send"},
+{id:32,tag:"COMPLETE",q:"She's responsible ___ handling customer complaints.",a:"for"},
+{id:33,tag:"COMPLETE",q:"Please make sure you are ___ time for the shift.",a:"on"},
+{id:34,tag:"COMPLETE",q:"This is the same issue ___ I mentioned earlier.",a:"that / which"},
+{id:35,tag:"COMPLETE",q:"I look forward ___ resolving this quickly.",a:"to"},
+{id:36,tag:"OPEN",q:"Describe your daily routine.",a:"I usually wake up early, check my messages, plan my tasks for the day, work through the morning, take a short break for lunch, and continue working until evening."},
+{id:37,tag:"OPEN",q:"What do you do in your free time?",a:"In my free time, I enjoy learning new skills online, reading about technology, and spending time with family."},
+{id:38,tag:"OPEN",q:"Describe your hometown.",a:"I'm from Rohtak, a city in Haryana. It's known for its markets, colleges, and a growing number of small businesses."},
+{id:39,tag:"OPEN",q:"Talk about a time you solved a problem.",a:"Once a system I was using ran out of storage unexpectedly. I researched the cause, found a fix, and resolved it within a day without losing any data."},
+{id:40,tag:"OPEN",q:"What are your strengths?",a:"I learn quickly, stay calm under pressure, and I'm comfortable figuring things out on my own when I don't have a ready answer."},
+{id:41,tag:"OPEN",q:"Describe your ideal job.",a:"My ideal job lets me keep learning, gives me clear goals, and rewards consistent effort with growth opportunities."},
+{id:42,tag:"OPEN",q:"How do you handle stress?",a:"I break the problem into smaller steps, prioritize the most urgent part first, and take a short pause if I feel overwhelmed."},
+{id:43,tag:"OPEN",q:"What is your favorite book or movie and why?",a:"I enjoy content about technology and real-world problem solving because it helps me think about practical solutions."},
+{id:44,tag:"OPEN",q:"Describe your typical weekend.",a:"On weekends, I usually catch up on personal projects, spend time with family, and plan for the week ahead."},
+{id:45,tag:"OPEN",q:"What makes a good team member?",a:"A good team member communicates clearly, meets deadlines, and is willing to help others when they're stuck."},
+{id:46,tag:"OPEN",q:"How do you stay motivated?",a:"I set small, clear goals for each day and remind myself of the bigger outcome I'm working toward."},
+{id:47,tag:"OPEN",q:"Describe a challenge you overcame.",a:"I once had to learn a new skill quickly with no formal training. I used online resources, practiced daily, and eventually became confident with it."},
+{id:48,tag:"OPEN",q:"What do you like about working with customers?",a:"I like the chance to solve a real problem for someone and see them satisfied by the end of the conversation."},
+{id:49,tag:"OPEN",q:"How would you handle a disagreement with a coworker?",a:"I would listen to their point first, explain my perspective calmly, and look for a solution that works for both of us."},
+{id:50,tag:"OPEN",q:"Why is punctuality important?",a:"Punctuality shows respect for other people's time and helps keep the whole team's schedule on track."}
+];
+
+const OPS = [
+{id:1,tag:"ACRO",q:"What does SLA stand for?",a:"Service Level Agreement",r:"The agreed time/quality standard for resolving a customer issue."},
+{id:2,tag:"ACRO",q:"What does CSAT stand for?",a:"Customer Satisfaction (Score)",r:"A rating customers give after an interaction, usually on a 1\u20135 scale."},
+{id:3,tag:"ACRO",q:"What does AHT stand for?",a:"Average Handle Time",r:"Average time to handle one interaction, including hold and after-call work."},
+{id:4,tag:"ACRO",q:"What does FCR stand for?",a:"First Call/Contact Resolution",r:"Resolving a customer's issue in the very first interaction, no follow-up needed."},
+{id:5,tag:"ACRO",q:"What does NPS stand for?",a:"Net Promoter Score",r:"Measures how likely a customer is to recommend the company."},
+{id:6,tag:"ACRO",q:"What does KPI stand for?",a:"Key Performance Indicator",r:"A measurable value showing how well an agent or team is performing."},
+{id:7,tag:"ACRO",q:"What does QA stand for in this context?",a:"Quality Assurance",r:"The process of reviewing calls/chats to ensure standards are followed."},
+{id:8,tag:"ACRO",q:"What does IVR stand for?",a:"Interactive Voice Response",r:"The automated phone menu system before reaching an agent."},
+{id:9,tag:"ACRO",q:"What does ACD stand for?",a:"Automatic Call Distributor",r:"The system that routes incoming calls to available agents."},
+{id:10,tag:"ACRO",q:"What does TAT stand for?",a:"Turnaround Time",r:"Total time taken to complete a task or resolve a request."},
+{id:11,tag:"ACRO",q:"What does ATA stand for?",a:"Average Time to Answer",r:"How quickly a call/chat is picked up after it arrives."},
+{id:12,tag:"ACRO",q:"What is meant by \"Escalation\"?",a:"Passing a customer issue to a higher-level agent or supervisor",r:"Used when the first-level agent can't resolve the issue."},
+{id:13,tag:"ACRO",q:"What is \"Churn\" in a BPO/business context?",a:"The rate at which customers stop using a company's service",r:"A key metric for customer retention health."},
+{id:14,tag:"ACRO",q:"What does SOP stand for?",a:"Standard Operating Procedure",r:"The official step-by-step process agents must follow for a task."},
+{id:15,tag:"ACRO",q:"What is \"Shrinkage\"?",a:"Time agents are scheduled but unavailable (breaks, training, meetings)",r:"Used in workforce planning to estimate real available staffing."},
+{id:16,tag:"SCENARIO",q:"A customer is angry and using harsh language. How would you handle it?",a:"I would stay calm, let them express their frustration without interrupting, acknowledge the issue, and focus on finding a solution rather than reacting to the tone."},
+{id:17,tag:"SCENARIO",q:"A customer asks for something outside company policy. What do you do?",a:"I would explain the policy clearly and politely, offer the closest available alternative, and escalate to a supervisor if the customer isn't satisfied."},
+{id:18,tag:"SCENARIO",q:"You don't know the answer to a customer's question. What's your approach?",a:"I would let the customer know I need a moment to check, research quickly, and give an accurate answer rather than guessing."},
+{id:19,tag:"SCENARIO",q:"A customer wants a refund that isn't normally allowed. How do you respond?",a:"I would explain the refund policy honestly, check if any exception applies, and if not, offer an alternative like store credit or escalate to a supervisor."},
+{id:20,tag:"SCENARIO",q:"How would you handle multiple customers waiting at the same time?",a:"I would prioritize based on urgency, keep each customer briefly updated if there's a delay, and avoid rushing responses at the cost of accuracy."},
+{id:21,tag:"SCENARIO",q:"A customer repeats the same complaint they made last week. What do you do?",a:"I would apologize for the repeat issue, check the previous case notes, and make sure this time it's fully resolved or properly escalated."},
+{id:22,tag:"SCENARIO",q:"How do you make sure you don't miss any details while chatting with a customer?",a:"I read the full message before replying, take short notes for multi-part questions, and confirm details back to the customer before closing the chat."},
+{id:23,tag:"SCENARIO",q:"A customer asks you to bend a rule \"just this once.\" How do you respond?",a:"I would explain politely that the policy applies to everyone equally, but look for any approved alternative that still helps them."},
+{id:24,tag:"SCENARIO",q:"What would you do if you made a mistake in a customer's order or account?",a:"I would acknowledge the mistake immediately, correct it as fast as possible, and clearly inform the customer what was fixed."},
+{id:25,tag:"SCENARIO",q:"How do you keep your AHT low without rushing the customer?",a:"I stay organized, use quick reference notes for common issues, and ask clear, direct questions instead of open-ended ones that slow the conversation."},
+{id:26,tag:"SCENARIO",q:"A customer becomes rude and starts insulting you personally. What do you do?",a:"I stay professional, don't take it personally, calmly redirect the conversation back to solving their issue, and follow escalation steps if it continues."},
+{id:27,tag:"SCENARIO",q:"How would you explain a technical issue to a non-technical customer?",a:"I would avoid jargon, use simple everyday comparisons, and check that they understood before moving to the next step."},
+{id:28,tag:"SCENARIO",q:"A system outage means you can't access customer accounts. What do you tell the customer?",a:"I would be honest about the outage, give a realistic timeline if known, and offer to follow up once the system is back."},
+{id:29,tag:"SCENARIO",q:"How do you handle a customer who wants to speak to a supervisor immediately?",a:"I would try to understand and address their concern first, and if they still want to escalate, transfer them promptly with a brief summary for the supervisor."},
+{id:30,tag:"SCENARIO",q:"What would you do if you disagreed with a company policy a customer is upset about?",a:"I would still represent the policy professionally to the customer, but note the feedback internally through the proper channel."},
+{id:31,tag:"SCENARIO",q:"How do you handle a language barrier with a customer?",a:"I would speak slowly and clearly, use simple words, confirm understanding often, and use translation tools or escalate if truly needed."},
+{id:32,tag:"SCENARIO",q:"A customer asks a question you're not authorized to answer. What do you say?",a:"I would let them know that information isn't something I can share, and offer to connect them with someone who can help."},
+{id:33,tag:"SCENARIO",q:"How would you handle back-to-back difficult chats without getting overwhelmed?",a:"I take a short mental reset between chats, follow the same calm process each time, and use scheduled breaks to recover."},
+{id:34,tag:"SCENARIO",q:"A customer's issue needs input from another department. How do you proceed?",a:"I would inform the customer I'm checking with another team, set a clear expectation for follow-up time, and make sure it's actually followed through."},
+{id:35,tag:"SCENARIO",q:"How do you verify a customer's identity before discussing account details?",a:"I ask for the standard verification details required by policy \u2014 like registered email, order ID, or a security question \u2014 before sharing any account information."},
+{id:36,tag:"SCENARIO",q:"What would you do if a customer threatened to leave a bad review?",a:"I would stay calm, focus on genuinely resolving their issue rather than reacting to the threat, and follow standard escalation if needed."},
+{id:37,tag:"SCENARIO",q:"How do you handle a customer who keeps changing their request mid-conversation?",a:"I would summarize what's been agreed so far after each change, to keep both of us aligned and avoid confusion."},
+{id:38,tag:"SCENARIO",q:"What's your approach when a customer's issue has no clear solution in the SOP?",a:"I would document the details clearly and escalate it to a supervisor rather than guessing at a resolution."},
+{id:39,tag:"SCENARIO",q:"How would you close a chat where the issue wasn't fully resolved?",a:"I would clearly explain what's been done, what's pending, and when the customer can expect the next update."},
+{id:40,tag:"SCENARIO",q:"How do you handle feedback from a QA review that flagged an error in your call/chat?",a:"I'd review the feedback carefully, understand what went wrong, and apply the correction in future interactions rather than getting defensive."},
+{id:41,tag:"METRIC",q:"Why is CSAT important to a BPO?",a:"It directly reflects how customers feel about the service and affects client contracts and company reputation."},
+{id:42,tag:"METRIC",q:"Why might a high AHT not always be bad?",a:"If it results in genuinely resolving the issue fully (higher FCR), a slightly longer but complete call can be better than a rushed one."},
+{id:43,tag:"METRIC",q:"What's the difference between SLA and KPI?",a:"SLA is the specific service commitment agreed with a client (e.g., resolve in 24 hours); KPI is any measurable performance metric used to track an agent or process."},
+{id:44,tag:"METRIC",q:"Why do BPOs track shrinkage?",a:"It helps them plan staffing accurately so there are enough agents actually available to handle the expected volume of contacts."},
+{id:45,tag:"METRIC",q:"What happens if FCR is consistently low?",a:"Customers have to contact support multiple times for the same issue, which lowers CSAT and increases overall workload."},
+{id:46,tag:"METRIC",q:"What's the purpose of a QA review?",a:"To make sure agents follow process and communication standards consistently, and to identify coaching opportunities."},
+{id:47,tag:"METRIC",q:"Why is TAT important for email/ticket-based support?",a:"It sets a clear expectation for how quickly a customer's request will be handled, which affects customer trust."},
+{id:48,tag:"METRIC",q:"What can cause a drop in NPS even if CSAT is stable?",a:"NPS reflects long-term loyalty and likelihood to recommend, so factors like pricing or product quality can lower it even when individual interactions go well."},
+{id:49,tag:"METRIC",q:"Why do call centers use IVR before connecting to an agent?",a:"To route the customer to the right department or self-service option, reducing wait time and unnecessary transfers."},
+{id:50,tag:"METRIC",q:"What's the risk of ignoring SOP to save time?",a:"It can lead to inconsistent service, compliance issues, or unresolved problems that come back as repeat contacts."}
+];
+
+const HR = [
+{id:1,q:"Tell me about yourself.",a:"I'm a self-taught developer with hands-on experience building software products end-to-end. I'm now looking for a role where I can apply strong communication and problem-solving skills in a structured, professional environment."},
+{id:2,q:"Why do you want to work at Concentrix?",a:"Concentrix works with well-known global clients, and I'm looking for a professional environment where I can build strong customer-facing skills and grow steadily."},
+{id:3,q:"What are your strengths?",a:"I learn quickly, stay calm under pressure, and communicate clearly \u2014 all useful for resolving customer issues efficiently."},
+{id:4,q:"What is your biggest weakness?",a:"I sometimes want to solve every detail myself before asking for help \u2014 I've been working on asking sooner when needed."},
+{id:5,q:"Why should we hire you?",a:"I bring strong problem-solving ability, clear communication, and adaptability \u2014 I pick up new systems and processes quickly."},
+{id:6,q:"Where do you see yourself in 5 years?",a:"Growing into a role with more responsibility, ideally in operations or team leadership, while continuing to build my professional skills."},
+{id:7,q:"Why are you looking for this role right now?",a:"I'm looking for a stable, structured role that lets me build strong professional and communication skills while I continue other long-term goals."},
+{id:8,q:"Are you comfortable working night shifts or international hours?",a:"Yes, I'm fully comfortable with night shifts and flexible scheduling."},
+{id:9,q:"How do you handle pressure or stressful situations?",a:"I break tasks into smaller priorities, stay focused on what's most urgent, and take short breaks to reset when needed."},
+{id:10,q:"Describe a time you handled a difficult customer or person.",a:"Use the STAR format \u2014 Situation, Task, Action, Result. Briefly set the scene, explain what you needed to do, describe how you stayed calm and listened, and end with the resolution."},
+{id:11,q:"What do you know about our company?",a:"Concentrix is a global customer experience company that provides support services for major brands across industries like tech, retail, and finance."},
+{id:12,q:"What is your salary expectation?",a:"I'm looking for a fair, competitive package based on the role \u2014 I'm open to discussing the exact number."},
+{id:13,q:"Are you willing to relocate?",a:"Yes, I'm open to relocating if required for the role."},
+{id:14,q:"How do you prioritize tasks when everything feels urgent?",a:"I identify what has the most impact or the closest deadline first, then work through the rest in order."},
+{id:15,q:"Describe your ideal work environment.",a:"A structured, supportive team environment where clear expectations are set and consistent effort is recognized."},
+{id:16,q:"How do you handle criticism or feedback?",a:"I take it as useful information, reflect on what's valid, and adjust my approach rather than getting defensive."},
+{id:17,q:"What motivates you at work?",a:"Solving problems and seeing a clear, positive result for the people I'm helping."},
+{id:18,q:"Describe a time you worked in a team.",a:"Use STAR \u2014 describe a collaborative project, your specific role in it, and the outcome the team achieved together."},
+{id:19,q:"What are your career goals?",a:"To build strong professional skills in a customer-facing role and grow into more responsibility over time."},
+{id:20,q:"How would your friends or colleagues describe you?",a:"Reliable, calm under pressure, and someone who follows through on commitments."},
+{id:21,q:"Why do you want to work in a BPO or customer service role?",a:"I enjoy solving problems for people directly, and I appreciate the structure and clear growth path this kind of role offers."},
+{id:22,q:"How do you handle repetitive tasks?",a:"I stay focused by tracking small improvements in speed and accuracy, which keeps the work engaging."},
+{id:23,q:"What would you do if you disagreed with your manager's decision?",a:"I would share my perspective respectfully and privately, but follow the final decision professionally."},
+{id:24,q:"How do you manage your time?",a:"I plan my day around priorities, set realistic time blocks for each task, and review what's pending at the end of the day."},
+{id:25,q:"What's your availability to join?",a:"I can join immediately (or state your actual notice period clearly)."},
+{id:26,q:"Describe a mistake you made and how you fixed it.",a:"Use STAR \u2014 briefly own the mistake, explain the correction you made, and what you learned from it."},
+{id:27,q:"How do you deal with a heavy workload?",a:"I prioritize based on urgency and impact, and communicate early if a deadline looks at risk."},
+{id:28,q:"What do you do if you don't know how to solve a problem at work?",a:"I check available resources first, and ask a colleague or supervisor if I'm still unsure, rather than guessing."},
+{id:29,q:"Are you comfortable with a target-driven role?",a:"Yes, I work well with clear, measurable goals."},
+{id:30,q:"How do you build rapport with someone you've just met, like a customer?",a:"I stay polite, listen actively, and keep the tone warm and professional from the first message."},
+{id:31,q:"What does good customer service mean to you?",a:"Solving the customer's actual problem efficiently, while making them feel heard and respected."},
+{id:32,q:"How do you handle a situation where you have to say no to a request?",a:"I explain the reason clearly and, where possible, offer an alternative that still helps."},
+{id:33,q:"Tell me about a time you went above and beyond for someone.",a:"Use STAR \u2014 describe the specific instance of extra effort and the positive outcome it led to."},
+{id:34,q:"Why did you choose this career path?",a:"I'm drawn to work where communication and problem-solving directly help people, which fits a customer service role well."},
+{id:35,q:"How do you keep yourself updated or keep learning?",a:"I regularly read up on new tools and practice skills relevant to my role in my own time."},
+{id:36,q:"What would you do if two customers needed help at the same time?",a:"I would acknowledge both quickly, then handle each one fully rather than rushing either."},
+{id:37,q:"Do you have any questions for us?",a:"Yes \u2014 what does a typical career growth path look like for someone starting in this role?"},
+{id:38,q:"How do you handle a long notice period, from your side or the company's?",a:"I understand it's a standard business need and would plan my transition accordingly."},
+{id:39,q:"What makes you different from other candidates?",a:"My mix of hands-on technical problem-solving experience and strong communication skills."},
+{id:40,q:"How do you stay calm when a customer escalates emotionally?",a:"I focus on tone and pace \u2014 speaking slowly and calmly usually helps de-escalate the situation."},
+{id:41,q:"Describe your communication style.",a:"Direct, clear, and polite \u2014 I try to get to the point while keeping the tone respectful."},
+{id:42,q:"How would you handle being micromanaged?",a:"I'd focus on delivering consistent, reliable results, which usually builds the trust needed for more independence over time."},
+{id:43,q:"What does teamwork mean to you?",a:"Everyone doing their part reliably and communicating openly when something needs adjusting."},
+{id:44,q:"How do you handle a slow period with fewer tasks?",a:"I use the time to review processes, catch up on documentation, or help teammates."},
+{id:45,q:"What's the most challenging part of customer service work, in your opinion?",a:"Staying calm and solution-focused when a customer is frustrated, without taking it personally."},
+{id:46,q:"How do you ensure accuracy while working quickly?",a:"I double-check key details before submitting or sending, especially anything customer-facing."},
+{id:47,q:"Why should we trust you with confidential customer information?",a:"I understand the importance of data privacy and follow verification and confidentiality steps strictly."},
+{id:48,q:"What's your understanding of this role's day-to-day responsibilities?",a:"Handling customer queries via chat, resolving issues within process guidelines, and escalating when necessary."},
+{id:49,q:"How do you handle a day when nothing seems to go right?",a:"I focus on completing what I can control, take a short reset if needed, and don't let one bad interaction affect the next."},
+{id:50,q:"What would you do if you found the training insufficient for a task?",a:"I'd revisit training materials, ask a supervisor for clarification, and note the gap for future improvement."}
+];
+
+const SPEAKING = [
+{id:1,q:"Talk about your favorite hobby.",a:"I enjoy reading books in my free time. It helps me relax and also learn new things. I usually read for about thirty minutes every evening before going to bed. Sometimes I read non-fiction books about technology, and other times I enjoy simple stories. Reading also helps me improve my vocabulary and my English speaking skills. Besides reading, I also enjoy listening to music, especially when I need to focus on work. Overall, I think having a hobby is important because it gives us a break from our daily routine and helps us feel refreshed. I would recommend everyone find at least one hobby they truly enjoy."},
+{id:2,q:"Talk about your hometown.",a:"I am from Rohtak, a city in Haryana. It is known for its markets, schools, and a growing number of small businesses. The city has a mix of old and new areas, with busy markets in the center and newer housing colonies on the outskirts. People here are generally friendly and hardworking. Rohtak is also well connected by road to Delhi, which makes travel convenient. Over the past few years, the city has grown a lot, with more shops, offices, and educational institutes opening up. I like my hometown because it is peaceful, yet it also offers good opportunities for work and study. It feels like home to me."},
+{id:3,q:"Talk about the importance of time management.",a:"Time management means using your time wisely so that you can complete your tasks on time. It is very important, especially at work, because it helps you stay organized and reduces stress. I usually make a small list of tasks every morning and complete the most important ones first. This way, I do not feel overwhelmed later in the day. Good time management also helps build trust with your team and your manager, since they know you will meet deadlines. In my opinion, anyone who wants to be successful in their career should learn to manage their time well. It is a simple habit, but it makes a big difference."},
+{id:4,q:"Talk about your favorite season.",a:"My favorite season is winter. I like it because the weather is cool and pleasant, which makes it easy to work and travel during the day. In winter, we also have several festivals and family gatherings, which make the season feel special. I enjoy wearing warm clothes and drinking hot tea in the morning. Unlike summer, winter does not tire me out, so I feel more active and productive. The mornings are a bit foggy sometimes, but I still enjoy the overall atmosphere. Overall, winter feels calm and comfortable to me, and it is the season I look forward to the most every year."},
+{id:5,q:"Talk about the role of technology in daily life.",a:"Technology plays a big role in our daily lives today. We use smartphones to communicate, laptops to work, and the internet to find information quickly. Technology has made many tasks easier and faster, such as paying bills, booking tickets, or talking to people who live far away. At work, technology also helps us stay organized and connected with our team, even if we are in different locations. However, it is also important to use technology in a balanced way and not become too dependent on it. Overall, I believe technology has made our lives more convenient, and it will continue to change the way we live and work."},
+{id:6,q:"Talk about the importance of teamwork.",a:"Teamwork means working together with others to achieve a common goal. It is important because no one can do everything alone, and different people bring different skills to a project. When a team works well together, tasks get completed faster and with fewer mistakes. Good teamwork also creates a positive environment, where people feel comfortable sharing ideas and helping each other. In my experience, clear communication is the key to good teamwork, because it avoids confusion and misunderstandings. I believe that companies which encourage teamwork usually perform better, since employees feel supported and motivated to do their best work."},
+{id:7,q:"Talk about your morning routine.",a:"My morning routine usually starts early. I wake up, freshen up, and then check my phone for any important messages. After that, I have a light breakfast and plan my tasks for the day. I try to prioritize the most important work first, so that I do not feel rushed later. I also like to take a few minutes to relax before starting my work, either by drinking tea or taking a short walk. Having a consistent morning routine helps me feel more organized and ready for the day ahead. I believe that starting the day calmly makes it easier to handle whatever comes next."},
+{id:8,q:"Talk about a book you enjoyed reading.",a:"One book I really enjoyed reading was about the life of a successful entrepreneur who started with very little and built a large company. The book explained how he faced many failures before finally succeeding, and how he never gave up despite the challenges. I liked it because it showed that hard work and patience are more important than luck. It also taught me that mistakes are a normal part of learning and growing. After reading it, I felt more motivated to work on my own goals, step by step. I would recommend this kind of book to anyone who wants to stay inspired during difficult times."},
+{id:9,q:"Talk about the importance of good communication skills.",a:"Good communication skills are very important, both at work and in daily life. When we communicate clearly, we avoid misunderstandings and can solve problems more quickly. In a job like customer service, communication is even more important because we need to explain things simply so that customers understand and feel satisfied. Good communication also includes listening carefully to what the other person is saying, not just speaking well. I try to keep my language simple and polite, so that people feel comfortable talking to me. Overall, I believe that strong communication skills can help a person build better relationships and succeed in almost any career."},
+{id:10,q:"Talk about your favorite festival.",a:"My favorite festival is Diwali, the festival of lights. During Diwali, we clean and decorate our homes, light diyas, and spend time with family and friends. It is a time when everyone comes together to celebrate happiness and good fortune. We also exchange sweets and gifts with neighbors and relatives. I enjoy the festive atmosphere, with lights everywhere and a feeling of joy in the air. It also gives us a break from our regular routine to relax and reconnect with our loved ones. Overall, Diwali is special to me because it represents togetherness, positivity, and new beginnings."},
+{id:11,q:"Talk about the importance of health and fitness.",a:"Health and fitness are very important for living a happy and productive life. When we are physically fit, we have more energy to focus on our work and daily tasks. I try to stay active by walking regularly and eating balanced meals. Good health also helps reduce stress and improves our mood, which makes it easier to handle challenges at work. In addition, staying fit can prevent many long-term health problems later in life. I believe that even small habits, like taking a short walk every day or drinking enough water, can make a big difference over time. Overall, taking care of our health should be a priority for everyone."},
+{id:12,q:"Talk about a memorable trip you took.",a:"One memorable trip I took was a short visit to Delhi with my family. We visited a few historical places and enjoyed the local food along the way. What made the trip special was spending quality time together, away from our usual routine. We also learned some interesting history about the places we visited. Even though the trip was short, it left a lasting impression on me because everyone was relaxed and happy. I believe that traveling, even for a short time, helps us feel refreshed and gives us new experiences to remember. I hope to take more trips like this in the future."},
+{id:13,q:"Talk about your favorite food.",a:"My favorite food is simple home-cooked Indian food, like dal, rice, and vegetables. I enjoy it because it reminds me of home and is also healthy. I like that home-cooked food usually has fewer unhealthy ingredients compared to food from outside. Occasionally, I also enjoy trying different cuisines, like Chinese or Italian food, for a change. However, I always come back to simple home food because it feels comforting. Sharing a meal with family also makes food taste even better, in my opinion. Overall, I believe that good food, eaten in good company, is one of the simple joys of life."},
+{id:14,q:"Talk about the importance of honesty.",a:"Honesty means telling the truth and being sincere in what we say and do. I believe honesty is one of the most important qualities a person can have, both in personal life and at work. When we are honest, people trust us more, and it becomes easier to build strong relationships. In a job, honesty is especially important because it helps maintain trust between employees and customers. Even if the truth is difficult to say sometimes, being honest is always better in the long run than hiding the truth. I try to be honest in my daily interactions, because I believe it reflects good character and earns respect from others."},
+{id:15,q:"Talk about your dream job.",a:"My dream job would be one where I can keep learning new things while also helping other people solve their problems. I would like a role that gives me the opportunity to grow and take on more responsibility over time. I also value a workplace that supports its employees and encourages teamwork. While I am open to different opportunities, I hope to eventually work in a position where I can use both my technical skills and my communication skills together. Overall, my dream job is less about a specific title and more about having a role where I can keep growing and make a positive difference."},
+{id:16,q:"Talk about the benefits of reading newspapers.",a:"Reading the newspaper every day has many benefits. It helps us stay updated on current events happening around the world and in our own country. It also improves our vocabulary and our understanding of different topics, such as business, politics, and technology. Reading the newspaper regularly can also help improve our reading speed and comprehension over time. I try to read the newspaper for a few minutes every morning, as it helps me start the day with useful information. Overall, I believe that this simple daily habit keeps a person well-informed and better prepared for conversations on current topics."},
+{id:17,q:"Talk about the importance of punctuality.",a:"Punctuality means being on time for work, meetings, or any commitment we make. It is important because it shows respect for other people's time and helps things run smoothly. When someone is punctual, it also builds trust, since others know they can rely on that person. In a work environment, being punctual is especially important because delays can affect the whole team's schedule. I always try to plan ahead so that I arrive on time, even a few minutes early if possible. I believe that punctuality reflects discipline and professionalism, and it is a habit that benefits both individuals and organizations."},
+{id:18,q:"Talk about your favorite teacher.",a:"My favorite teacher was someone who always explained topics in a simple and clear way, which made it easy for students to understand. She was patient with students who had doubts and never made anyone feel embarrassed for asking questions. She also encouraged us to think for ourselves, rather than just memorizing information. I learned a lot from her, not just about the subject, but also about how to stay calm and patient while explaining something to others. Her positive attitude made classes enjoyable, and I still remember many of the lessons she taught us, even years later."},
+{id:19,q:"Talk about the impact of social media.",a:"Social media has changed the way people communicate and share information. It allows us to stay connected with friends and family, even if they live far away. It also helps businesses reach more customers and share updates quickly. However, social media also has some downsides, such as spreading false information or causing people to compare their lives with others online. I believe it is important to use social media in a balanced way, focusing on the positive aspects, like staying connected and learning new things, while being careful about how much time we spend on it. Overall, social media can be very useful when used responsibly."},
+{id:20,q:"Talk about the importance of saving money.",a:"Saving money is important because it helps us prepare for unexpected situations, like medical emergencies or sudden expenses. It also allows us to plan for bigger goals in the future, such as buying a house or starting a business. I try to save a small amount from my income regularly, rather than spending everything right away. Even small savings can add up over time if done consistently. Saving money also gives a sense of financial security, which reduces stress in daily life. I believe that developing the habit of saving early is one of the best financial decisions a person can make."},
+{id:21,q:"Talk about a skill you would like to learn.",a:"One skill I would like to learn is public speaking. I believe it would help me communicate my ideas more confidently, both at work and in social situations. Right now, I sometimes feel nervous while speaking in front of a group, and I would like to improve this. I think practicing regularly, perhaps by joining a small group or practicing at home, could help me build this skill over time. Improving my public speaking would also help me in interviews and in explaining ideas clearly to customers or colleagues. Overall, I believe this is a valuable skill that can benefit almost any career."},
+{id:22,q:"Talk about the importance of customer service.",a:"Customer service means helping customers with their questions, problems, or requests in a polite and efficient way. It is important because it directly affects how customers feel about a company. Good customer service can turn a frustrated customer into a satisfied one, while poor service can make a company lose customers. I believe that patience, clear communication, and a positive attitude are the most important qualities for good customer service. Listening carefully to what the customer needs, rather than rushing to reply, also makes a big difference. Overall, I think customer service plays a very important role in building trust and loyalty between a company and its customers."},
+{id:23,q:"Talk about your favorite movie.",a:"One movie I enjoyed watching was based on a true story about someone who overcame many difficulties to achieve success. I liked it because it showed how hard work, patience, and determination can help a person overcome challenges, even when things seem impossible. The movie also had a positive message about never giving up, which I found inspiring. After watching it, I felt more motivated to keep working towards my own goals, even during difficult times. I enjoy movies that have a meaningful message, rather than just entertainment, because they leave a lasting impact and give me something to think about afterward."},
+{id:24,q:"Talk about the importance of family.",a:"Family is very important to me because they are the people who support me the most, especially during difficult times. Spending time with family helps me relax and feel happy, away from the stress of daily work. I try to make time for my family every day, even if it is just a short conversation or a meal together. Family also teaches us important values, like honesty, patience, and respect for others. I believe that having a strong support system at home makes it easier to handle challenges outside, whether at work or in daily life. Overall, family plays a very important role in my life."},
+{id:25,q:"Talk about your city's public transport.",a:"The public transport system in my city includes buses and shared autos that connect different areas. It is generally affordable and helps a lot of people travel to work or school every day. However, during peak hours, it can get quite crowded, and sometimes there are delays. I believe that improving public transport, such as adding more buses or better schedules, would benefit a lot of people and also reduce traffic on the roads. Personally, I try to plan my travel time in advance to avoid delays. Overall, public transport plays an important role in helping people move around the city conveniently."},
+{id:26,q:"Talk about the advantages of working in a team.",a:"Working in a team has several advantages. It allows people to share ideas and solve problems more effectively, since different team members often have different perspectives. Teamwork also helps divide the workload, so tasks get completed faster and with less stress on any one person. In addition, working in a team helps build good relationships with colleagues, which makes the work environment more pleasant. I believe that clear communication and mutual respect are essential for a team to work well together. Overall, I think teamwork not only improves the quality of work but also makes the work experience more enjoyable for everyone involved."},
+{id:27,q:"Talk about how you handle stress.",a:"When I feel stressed, I try to break my tasks into smaller, manageable steps instead of thinking about everything at once. This helps me focus on one thing at a time, rather than feeling overwhelmed. I also take short breaks when needed, such as a quick walk or a few minutes of rest, to clear my mind. Talking to a friend or family member about what is bothering me also helps me feel better. I believe that staying calm and organized is the best way to handle stressful situations, rather than reacting quickly without thinking. Over time, I have learned that most problems can be solved step by step."},
+{id:28,q:"Talk about the importance of learning English.",a:"Learning English is important because it is widely used in business, education, and international communication. Knowing English well can open up more job opportunities, especially in companies that deal with clients from different countries. It also helps us access more information, since a lot of useful content online is available in English. I try to improve my English by reading, practicing speaking, and learning new words regularly. Even though it can be challenging at times, I believe that consistent practice makes a big difference over time. Overall, I think learning English is a valuable skill that can benefit a person both personally and professionally."},
+{id:29,q:"Talk about your favorite sport.",a:"My favorite sport is cricket. I enjoy watching it because it is exciting and involves a lot of strategy, not just physical skill. I also enjoy playing cricket occasionally with friends during weekends, as it helps me relax and stay active. Cricket also teaches important values, like teamwork and patience, since a match can sometimes last for many hours. I like following matches, especially important tournaments, because it brings people together, even those who do not usually follow sports closely. Overall, I think cricket is not just a sport but also a way to bring friends and family together to enjoy something as a group."},
+{id:30,q:"Talk about the effects of pollution.",a:"Pollution is a serious problem that affects both our health and the environment. Air pollution, especially in cities, can cause breathing problems and other health issues over time. Water pollution also affects the quality of drinking water and harms plants and animals. I believe that small individual actions, like using public transport instead of private vehicles or reducing plastic use, can help reduce pollution over time. Companies and governments also have an important role to play by following better environmental practices. Overall, I think everyone needs to take responsibility, even in small ways, to help reduce pollution and protect the environment for future generations."},
+{id:31,q:"Talk about the importance of politeness at work.",a:"Being polite at work is very important because it helps build good relationships with colleagues and customers. When we are polite, people feel respected and are more likely to cooperate with us. Politeness also helps reduce conflicts, since a calm and respectful tone can prevent small misunderstandings from becoming bigger problems. I try to remain polite even in stressful situations, because reacting calmly usually leads to better outcomes than reacting with frustration. I believe that politeness reflects professionalism and can make a big difference in how customers and colleagues perceive a person. Overall, being polite is a simple habit that has a big positive impact at work."},
+{id:32,q:"Talk about your weekend routine.",a:"On weekends, I usually try to relax and spend time on things I enjoy, since weekdays are mostly busy with work. I like to catch up on personal tasks, spend time with family, and sometimes go out for a short walk or a meal. I also use some time to plan for the upcoming week, so that I feel prepared when work starts again. Occasionally, I like to try something new, like learning a small skill or reading something interesting. I believe that having a relaxed weekend helps me feel refreshed and more productive during the week. Overall, I try to balance rest and light productivity on my weekends."},
+{id:33,q:"Talk about the value of continuous learning.",a:"Continuous learning means always trying to improve and gain new knowledge or skills, even after finishing formal education. I believe it is important because the world keeps changing, especially with new technology, and staying updated helps us remain competitive in our careers. I try to learn something new regularly, whether it is a new skill, a new tool, or simply reading about current trends in my field. Continuous learning also keeps the mind active and helps build confidence over time. I believe that people who keep learning throughout their lives are usually more adaptable and successful, since they are prepared to handle new challenges as they come."},
+{id:34,q:"Talk about the importance of good listening skills.",a:"Good listening skills mean paying full attention to what the other person is saying, without interrupting or thinking about your reply too soon. I believe listening is just as important as speaking, especially in customer service or teamwork, because it helps us understand the real issue before responding. When we listen carefully, we can respond more accurately and avoid misunderstandings. I try to practice active listening by focusing completely on the speaker and asking questions if something is unclear. I believe that good listeners are often seen as more trustworthy and easy to work with, since people feel heard and understood when talking to them."},
+{id:35,q:"Talk about your favorite place to visit.",a:"One place I would love to visit is a quiet hill station, away from the noise and busyness of city life. I think spending time in nature helps clear the mind and reduces stress. I imagine walking through green hills, enjoying fresh air, and simply relaxing without worrying about daily tasks. I also enjoy places with pleasant weather, since it makes outdoor activities more enjoyable. Even a short trip to such a place can feel very refreshing. I believe that everyone should try to take a break from their routine occasionally and visit a peaceful place, as it helps recharge both the mind and body."},
+{id:36,q:"Talk about the benefits of exercise.",a:"Exercise has many benefits for both physical and mental health. Regular exercise helps improve energy levels, strengthens the body, and reduces the risk of many health problems over time. It also helps reduce stress and improves our mood, since physical activity releases natural chemicals in the body that make us feel good. I try to include some form of exercise in my routine, even if it is just a short walk, since consistency is more important than intensity. I believe that making exercise a regular habit, rather than doing it occasionally, leads to the best long-term benefits for overall health and wellbeing."},
+{id:37,q:"Talk about the importance of patience.",a:"Patience means staying calm and waiting for the right outcome, even when things do not happen as quickly as we would like. I believe patience is an important quality, especially in situations that involve dealing with other people, such as customer service or teamwork. When we are patient, we make better decisions, since we are not rushing or reacting emotionally. I try to practice patience by reminding myself that most problems take time to solve properly. I believe that patience, combined with consistent effort, usually leads to better results than trying to rush through a situation without thinking it through carefully."},
+{id:38,q:"Talk about how technology has changed communication.",a:"Technology has changed communication a lot over the past few years. In the past, people relied mostly on letters or phone calls, but now we can send messages instantly through smartphones and the internet. This has made communication faster and more convenient, especially for staying in touch with people who live far away. Video calls have also made it possible to see and talk to someone in real time, even from a different city or country. However, I believe it is still important to maintain genuine, personal conversations, rather than relying only on quick messages. Overall, technology has made communication easier, but personal connection is still valuable."},
+{id:39,q:"Talk about the importance of a positive attitude at work.",a:"Having a positive attitude at work is very important because it affects not only our own performance but also the people around us. When we approach challenges with a positive mindset, we are more likely to find solutions instead of feeling discouraged. A positive attitude also makes the work environment more pleasant, since it can be contagious and encourage others to stay motivated as well. I try to remain positive, even during difficult tasks, by focusing on what I can control and learning from mistakes rather than dwelling on them. I believe that a positive attitude, combined with hard work, leads to better results over time."},
+{id:40,q:"Talk about your favorite way to relax.",a:"My favorite way to relax is listening to music or taking a short walk outside. These simple activities help me clear my mind after a busy day and reduce any stress I may be feeling. I also enjoy spending quiet time by myself occasionally, just thinking or planning, without any distractions. I find that relaxing regularly, even for a short time, helps me stay more focused and productive when I return to work. I believe that everyone should find a simple activity that helps them relax, since taking short breaks is important for maintaining both mental and physical wellbeing in the long run."},
+{id:41,q:"Talk about the importance of teamwork in customer service.",a:"Teamwork is especially important in customer service because a single agent cannot always solve every issue alone. When team members support each other, such as sharing information or helping with a difficult case, customers receive faster and better solutions. Good teamwork also helps maintain consistency, since all team members follow the same process and provide similar quality of service. I believe that a supportive team environment also reduces stress for individual agents, since they know they can ask for help when needed. Overall, I think strong teamwork directly improves the customer experience and creates a more positive work environment for everyone involved."},
+{id:42,q:"Talk about your first day at a new job or school.",a:"My first day at a new job was both exciting and a little nervous for me. I remember trying to remember everyone's names and understand the new processes quickly. Everyone was generally welcoming, which made it easier to settle in. I focused on listening carefully and asking questions whenever I was unsure, rather than guessing and making mistakes. By the end of the day, I felt more comfortable, even though there was still a lot to learn. I believe that staying open-minded and asking questions early on helps make the transition into a new role much smoother and less stressful over time."},
+{id:43,q:"Talk about the importance of confidence.",a:"Confidence means believing in your own abilities and being comfortable expressing your thoughts and ideas. I believe confidence is important, especially in a work environment, because it helps us communicate clearly and handle challenges without becoming too nervous. Building confidence often comes with practice and experience, so the more we try new things, the more confident we tend to become over time. I try to build my confidence by preparing well before important tasks or conversations, since good preparation naturally reduces nervousness. I believe that confidence, when combined with humility, helps a person perform well while still remaining open to feedback and learning."},
+{id:44,q:"Talk about the role of a good leader.",a:"A good leader is someone who guides and supports their team, rather than simply giving orders. I believe good leaders listen to their team members, understand their strengths, and help them grow in their roles. They also take responsibility for mistakes, rather than blaming others, which builds trust within the team. A good leader stays calm under pressure and makes decisions based on what is best for the team as a whole. I think leadership is not about having authority, but about earning respect through fair and consistent behavior. Overall, I believe that a good leader can make a big difference in a team's success and morale."},
+{id:45,q:"Talk about the importance of following rules at work.",a:"Following rules at work is important because it helps maintain order, safety, and fairness for everyone. Rules and procedures are usually created based on experience, so following them helps avoid mistakes that others may have already faced in the past. I believe that even if a rule seems inconvenient at times, it is important to follow it, since it likely exists for a good reason, such as safety or consistency. If I ever disagree with a rule, I try to raise my concern through the proper channel rather than ignoring it. Overall, I think following workplace rules shows respect for the organization and helps maintain a smooth working environment."},
+{id:46,q:"Talk about how you stay organized.",a:"To stay organized, I usually make a list of tasks at the start of each day and prioritize them based on importance and deadlines. I also try to keep my workspace and files organized, so I can find information quickly when needed. Reviewing my progress at the end of the day helps me plan better for the next day as well. I believe that staying organized reduces stress, since it prevents last-minute rushing or forgetting important tasks. Even simple habits, like writing things down instead of relying only on memory, can make a big difference in staying organized and managing time effectively."},
+{id:47,q:"Talk about the importance of feedback at work.",a:"Feedback is very important at work because it helps us understand what we are doing well and what we can improve. I believe that receiving feedback, even if it points out mistakes, should be seen as an opportunity to grow rather than something negative. I try to listen carefully to feedback and apply it in my future work, rather than feeling discouraged. Giving feedback to others is equally important, and I try to do it in a respectful and constructive way. Overall, I believe that a workplace which encourages open and honest feedback helps employees improve continuously and perform better over time."},
+{id:48,q:"Talk about your favorite way to spend free time with family.",a:"One of my favorite ways to spend free time with family is having a simple meal together and talking about our day. I also enjoy watching a movie together or just sitting and chatting without any distractions. These small moments help strengthen our relationship and give us a chance to relax together, away from daily responsibilities. Occasionally, we also plan small outings or trips, which make the time together even more special. I believe that spending quality time with family, even in simple ways, is very important for maintaining strong relationships and creating good memories over the years."},
+{id:49,q:"Talk about why you enjoy helping others.",a:"I enjoy helping others because it gives me a sense of satisfaction, knowing that I made someone's day a little easier. Whether it is helping a colleague with a task or solving a problem for a customer, I feel good when I can make a positive difference, even in a small way. I believe that helping others also builds stronger relationships and trust over time. In a work environment, being helpful can also encourage others to support each other, creating a more positive and cooperative atmosphere. Overall, I think helping others is not just good for them, but it also brings a sense of purpose and happiness to me."},
+{id:50,q:"Talk about your plans for the next five years.",a:"Over the next five years, I hope to grow both professionally and personally. Professionally, I would like to take on more responsibility and continue building my skills in areas like communication, problem-solving, and technical knowledge. I also hope to reach a stable position that allows me to plan confidently for the future. Personally, I want to keep learning new things and maintain a good balance between work and family life. While I understand that plans can change over time, I believe having clear goals helps guide my decisions and keeps me motivated. Overall, I am looking forward to steady growth in the coming years."}
+];
+
+/* ---------------- RENDER ---------------- */
+let mastery = new Set();
+let dictDone = new Set();
+let activeTag = "ALL";
+const genericMastery = {amcat:new Set(), versant:new Set(), ops:new Set(), hr:new Set()};
+const genericActiveTag = {amcat:"ALL", versant:"ALL", ops:"ALL"};
+const genericMeta = {
+  amcat:{data:AMCAT, listId:"amcatList", progText:"amcatProgText", progPct:"amcatProgPct", progFill:"amcatProgFill", searchId:"amcatSearch", onlyId:"amcatOnlyRemaining", resetId:"amcatReset"},
+  versant:{data:VERSANT, listId:"versantList", progText:"versantProgText", progPct:"versantProgPct", progFill:"versantProgFill", searchId:"versantSearch", onlyId:"versantOnlyRemaining", resetId:"versantReset"},
+  ops:{data:OPS, listId:"opsList", progText:"opsProgText", progPct:"opsProgPct", progFill:"opsProgFill", searchId:"opsSearch", onlyId:"opsOnlyRemaining", resetId:"opsReset"},
+  hr:{data:HR, listId:"hrList", progText:"hrProgText", progPct:"hrProgPct", progFill:"hrProgFill", searchId:"hrSearch", onlyId:"hrOnlyRemaining", resetId:"hrReset"}
+};
+function stampClass(tag){
+  if(["LOGIC","COMPLETE","SCENARIO"].includes(tag)) return "GRAM";
+  if(["VERBAL","OPEN","METRIC"].includes(tag)) return "CTX";
+  return "";
+}
+function renderGeneric(sectionKey){
+  const meta = genericMeta[sectionKey];
+  const list = document.getElementById(meta.listId);
+  const search = document.getElementById(meta.searchId).value.trim().toLowerCase();
+  const onlyRem = document.getElementById(meta.onlyId).checked;
+  const tagActive = genericActiveTag[sectionKey];
+  const masterySet = genericMastery[sectionKey];
+  list.innerHTML = "";
+  meta.data.forEach(item=>{
+    if(tagActive && tagActive!=="ALL" && item.tag!==tagActive) return;
+    if(onlyRem && masterySet.has(item.id)) return;
+    if(search && !(item.q.toLowerCase().includes(search) || item.a.toLowerCase().includes(search))) return;
+    const isMastered = masterySet.has(item.id);
+    const card = document.createElement('div');
+    card.className = "card" + (isMastered?" mastered":"");
+    const uid = sectionKey+"-"+item.id;
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="num">#${item.id}</span>
+        ${item.tag ? `<span class="stamp ${stampClass(item.tag)}">${item.tag}</span>` : ""}
+      </div>
+      <p class="sentence">${item.q}</p>
+      <button class="reveal-btn" data-uid="${uid}">Reveal answer</button>
+      <div class="answer-box" id="ans-${uid}">
+        <p class="answer-line">Answer: <b>${item.a}</b></p>
+        ${item.r ? `<p class="reason">${item.r}</p>` : ""}
+        <div class="master-row">
+          <input type="checkbox" id="chk-${uid}" ${isMastered?"checked":""}>
+          <label for="chk-${uid}">Got it \u2014 mark mastered</label>
+        </div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  updateGenericProgress(sectionKey);
+}
+function updateGenericProgress(sectionKey){
+  const meta = genericMeta[sectionKey];
+  const masterySet = genericMastery[sectionKey];
+  const pct = Math.round((masterySet.size/meta.data.length)*100);
+  document.getElementById(meta.progText).textContent = `${masterySet.size} / ${meta.data.length} mastered`;
+  document.getElementById(meta.progPct).textContent = `${pct}%`;
+  document.getElementById(meta.progFill).style.width = pct+"%";
+}
+async function saveGenericMastery(sectionKey){
+  try{ await window.storage.set(sectionKey+"_mastery", JSON.stringify([...genericMastery[sectionKey]]), false); }catch(e){}
+}
+Object.keys(genericMeta).forEach(sectionKey=>{
+  const meta = genericMeta[sectionKey];
+  document.getElementById(meta.listId).addEventListener('click',(e)=>{
+    if(e.target.classList.contains('reveal-btn')){
+      const uid = e.target.getAttribute('data-uid');
+      document.getElementById('ans-'+uid).classList.toggle('shown');
+    }
+    if(e.target.tagName==="INPUT" && e.target.type==="checkbox"){
+      const uid = e.target.id.replace('chk-','');
+      const id = parseInt(uid.split('-')[1]);
+      if(e.target.checked) genericMastery[sectionKey].add(id); else genericMastery[sectionKey].delete(id);
+      saveGenericMastery(sectionKey);
+      updateGenericProgress(sectionKey);
+      e.target.closest('.card').classList.toggle('mastered', e.target.checked);
+    }
+  });
+  document.getElementById(meta.searchId).addEventListener('input', ()=>renderGeneric(sectionKey));
+  document.getElementById(meta.onlyId).addEventListener('change', ()=>renderGeneric(sectionKey));
+  document.getElementById(meta.resetId).addEventListener('click', ()=>{
+    genericMastery[sectionKey] = new Set();
+    saveGenericMastery(sectionKey);
+    renderGeneric(sectionKey);
+  });
+});
+document.querySelectorAll('.chip[data-section]').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const sectionKey = chip.getAttribute('data-section');
+    document.querySelectorAll(`.chip[data-section="${sectionKey}"]`).forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    genericActiveTag[sectionKey] = chip.getAttribute('data-tag');
+    renderGeneric(sectionKey);
+  });
+});
+
+async function loadStorage(){
+  try{
+    const r = await window.storage.get("fillblank_mastery", false);
+    if(r && r.value) mastery = new Set(JSON.parse(r.value));
+  }catch(e){ mastery = new Set(); }
+  try{
+    const r2 = await window.storage.get("dictation_done", false);
+    if(r2 && r2.value) dictDone = new Set(JSON.parse(r2.value));
+  }catch(e){ dictDone = new Set(); }
+  for(const sectionKey of Object.keys(genericMeta)){
+    try{
+      const r3 = await window.storage.get(sectionKey+"_mastery", false);
+      if(r3 && r3.value) genericMastery[sectionKey] = new Set(JSON.parse(r3.value));
+    }catch(e){ genericMastery[sectionKey] = new Set(); }
+  }
+  try{
+    const r4 = await window.storage.get("speaking_mastery", false);
+    if(r4 && r4.value) speakingMastery = new Set(JSON.parse(r4.value));
+  }catch(e){ speakingMastery = new Set(); }
+  renderFB();
+  renderDict();
+  Object.keys(genericMeta).forEach(renderGeneric);
+  renderSpeaking();
+}
+
+async function saveMastery(){
+  try{ await window.storage.set("fillblank_mastery", JSON.stringify([...mastery]), false); }catch(e){}
+}
+async function saveDict(){
+  try{ await window.storage.set("dictation_done", JSON.stringify([...dictDone]), false); }catch(e){}
+}
+
+function renderFB(){
+  const list = document.getElementById('fbList');
+  const search = document.getElementById('fbSearch').value.trim().toLowerCase();
+  const onlyRem = document.getElementById('onlyRemaining').checked;
+  list.innerHTML = "";
+  FB.forEach(item=>{
+    if(activeTag!=="ALL" && item.tag!==activeTag) return;
+    if(onlyRem && mastery.has(item.id)) return;
+    if(search && !(item.q.toLowerCase().includes(search) || item.a.toLowerCase().includes(search))) return;
+    const isMastered = mastery.has(item.id);
+    const card = document.createElement('div');
+    card.className = "card" + (isMastered?" mastered":"");
+    const displayQ = item.q.replace("___", '<span class="blank">____</span>');
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="num">#${item.id}</span>
+        <span class="stamp ${item.tag}">${item.tag}</span>
+      </div>
+      <p class="sentence">${displayQ}</p>
+      <button class="reveal-btn" data-id="${item.id}">Reveal answer</button>
+      <div class="answer-box" id="ans-${item.id}">
+        <p class="answer-line">Answer: <b>${item.a}</b></p>
+        <p class="reason">${item.r}</p>
+        <div class="master-row">
+          <input type="checkbox" id="chk-${item.id}" ${isMastered?"checked":""}>
+          <label for="chk-${item.id}">Got it \u2014 mark mastered</label>
+        </div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const pct = Math.round((mastery.size/FB.length)*100);
+  document.getElementById('progText').textContent = `${mastery.size} / ${FB.length} mastered`;
+  document.getElementById('progPct').textContent = `${pct}%`;
+  document.getElementById('progFill').style.width = pct+"%";
+}
+
+document.getElementById('fbList').addEventListener('click', (e)=>{
+  if(e.target.classList.contains('reveal-btn')){
+    const id = e.target.getAttribute('data-id');
+    document.getElementById('ans-'+id).classList.toggle('shown');
+  }
+  if(e.target.tagName==="INPUT" && e.target.type==="checkbox"){
+    const id = parseInt(e.target.id.replace('chk-',''));
+    if(e.target.checked) mastery.add(id); else mastery.delete(id);
+    saveMastery();
+    updateProgress();
+    const card = e.target.closest('.card');
+    card.classList.toggle('mastered', e.target.checked);
+  }
+});
+
+document.getElementById('fbSearch').addEventListener('input', renderFB);
+document.getElementById('onlyRemaining').addEventListener('change', renderFB);
+document.querySelectorAll('.chip:not([data-section])').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip:not([data-section])').forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    activeTag = chip.getAttribute('data-tag');
+    renderFB();
+  });
+});
+document.getElementById('resetProgress').addEventListener('click', ()=>{
+  mastery = new Set();
+  saveMastery();
+  renderFB();
+});
+
+let speechVoices = [];
+function loadVoices(){
+  speechVoices = ('speechSynthesis' in window) ? window.speechSynthesis.getVoices() : [];
+}
+if('speechSynthesis' in window){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+function pickUSVoice(){
+  if(!speechVoices || !speechVoices.length) return null;
+  return speechVoices.find(v=>v.lang==='en-US') || speechVoices.find(v=>v.lang && v.lang.startsWith('en')) || speechVoices[0];
+}
+function speakSentence(text, btn){
+  if(!('speechSynthesis' in window)){
+    alert('Speech playback is not supported in this browser.');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  const voice = pickUSVoice();
+  if(voice) utter.voice = voice;
+  utter.lang = 'en-US';
+  utter.rate = 0.92;
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "\uD83D\uDD0A Playing\u2026";
+  utter.onend = ()=>{ btn.disabled=false; btn.textContent = original; };
+  utter.onerror = ()=>{ btn.disabled=false; btn.textContent = original; };
+  window.speechSynthesis.speak(utter);
+}
+const mediaRecorders = {};
+async function toggleRecording(id, btn, playbackEl){
+  const existing = mediaRecorders[id];
+  if(existing && existing.recording){
+    existing.recorder.stop();
+    return;
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const recorder = new MediaRecorder(stream);
+    const chunks = [];
+    recorder.ondataavailable = (e)=>{ if(e.data.size>0) chunks.push(e.data); };
+    recorder.onstop = ()=>{
+      const blob = new Blob(chunks, {type: recorder.mimeType || 'audio/webm'});
+      const url = URL.createObjectURL(blob);
+      playbackEl.innerHTML = `<audio controls src="${url}"></audio>`;
+      stream.getTracks().forEach(t=>t.stop());
+      mediaRecorders[id].recording = false;
+      btn.textContent = "\uD83C\uDF99\uFE0F Record";
+      btn.classList.remove('recording');
+    };
+    mediaRecorders[id] = {recorder, recording:true};
+    recorder.start();
+    btn.textContent = "\u23F9\uFE0F Stop";
+    btn.classList.add('recording');
+  }catch(err){
+    playbackEl.innerHTML = `<p class="mic-error">Mic access wasn't granted or isn't available here (${err.name || 'error'}). Allow microphone permission for this page, or try this tool in a browser tab instead of an embedded preview.</p>`;
+  }
+}
+function renderDict(){
+  const list = document.getElementById('dictList');
+  list.innerHTML = "";
+  DICT.forEach((d,i)=>{
+    const id = i+1;
+    const done = dictDone.has(id);
+    const row = document.createElement('div');
+    row.className = "card" + (done?" mastered":"");
+    row.innerHTML = `
+      <div class="card-top">
+        <span class="num">#${id}</span>
+        ${d.w ? '<span class="watch">watch</span>' : ""}
+      </div>
+      <div class="dict-actions">
+        <button class="listen-btn" data-id="${id}">\uD83D\uDD0A Listen</button>
+        <button class="record-btn" data-id="${id}">\uD83C\uDF99\uFE0F Record</button>
+      </div>
+      <div class="rec-playback" id="playback-${id}"></div>
+      <button class="reveal-btn" data-id="${id}">Reveal sentence</button>
+      <div class="answer-box" id="ans-dict-${id}">
+        <p class="answer-line">${d.t}</p>
+        <div class="master-row">
+          <input type="checkbox" id="chk-dict-${id}" ${done?"checked":""}>
+          <label for="chk-dict-${id}">Practiced</label>
+        </div>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+}
+document.getElementById('dictList').addEventListener('click', (e)=>{
+  if(e.target.classList.contains('reveal-btn')){
+    const id = e.target.getAttribute('data-id');
+    document.getElementById('ans-dict-'+id).classList.toggle('shown');
+  }
+  if(e.target.classList.contains('listen-btn')){
+    const id = e.target.getAttribute('data-id');
+    const item = DICT[parseInt(id)-1];
+    speakSentence(item.t, e.target);
+  }
+  if(e.target.classList.contains('record-btn')){
+    const id = e.target.getAttribute('data-id');
+    const playbackEl = document.getElementById('playback-'+id);
+    toggleRecording('dict-'+id, e.target, playbackEl);
+  }
+});
+document.getElementById('dictList').addEventListener('change', (e)=>{
+  if(e.target.type==="checkbox"){
+    const id = parseInt(e.target.id.replace('chk-dict-',''));
+    if(e.target.checked) dictDone.add(id); else dictDone.delete(id);
+    saveDict();
+    e.target.closest('.card').classList.toggle('mastered', e.target.checked);
+  }
+});
+
+function renderEmailTopics(){
+  const wrap = document.getElementById('emailTopics');
+  EMAIL_TOPICS.forEach(t=>{
+    const div = document.createElement('div');
+    div.className = "topic-card";
+    div.innerHTML = `<span class="num">#${t.n}</span><p>${t.body}</p>
+      ${t.themes ? `<div class="theme-tags">${t.themes.map(th=>`<span class="theme-tag">${th}</span>`).join('')}</div>` : ''}
+      <button class="reveal-btn" data-id="${t.n}" style="margin-top:10px;">Reveal model answer</button>
+      <div class="answer-box" id="ans-email-${t.n}">
+        <p class="answer-line" style="white-space:pre-line;">${t.a}</p>
+      </div>`;
+    wrap.appendChild(div);
+  });
+  wrap.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('reveal-btn')){
+      const id = e.target.getAttribute('data-id');
+      document.getElementById('ans-email-'+id).classList.toggle('shown');
+    }
+  });
+}
+
+function renderPassages(){
+  const wrap = document.getElementById('passageList');
+  PASSAGES.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.className = "passage-pair";
+    div.innerHTML = `<span class="lbl">Original ${i+1}</span><p class="orig">${p.orig}</p>
+      <button class="reveal-btn" data-id="${i+1}">Reveal reconstruction</button>
+      <div class="answer-box" id="ans-passage-${i+1}">
+        <span class="lbl">Reconstructed</span><p class="recon">${p.recon}</p>
+        <span class="lbl">Technique</span><p class="tech">${p.tech}</p>
+      </div>`;
+    wrap.appendChild(div);
+  });
+  wrap.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('reveal-btn')){
+      const id = e.target.getAttribute('data-id');
+      document.getElementById('ans-passage-'+id).classList.toggle('shown');
+    }
+  });
+}
+
+/* TAB SWITCHING */
+document.getElementById('tabNav').addEventListener('click', (e)=>{
+  if(e.target.tagName!=="BUTTON") return;
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-'+e.target.getAttribute('data-tab')).classList.add('active');
+});
+
+function playBeep(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.frequency.value = 880;
+    osc.connect(gain); gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    osc.start();
+    osc.stop(ctx.currentTime+0.4);
+  }catch(e){}
+}
+const speakingTimers = {};
+function toggleSpeakingTimer(id, btn, displayEl){
+  if(speakingTimers[id]){
+    clearInterval(speakingTimers[id]);
+    delete speakingTimers[id];
+    btn.textContent = "\u23F1\uFE0F Start 60s Timer";
+    displayEl.textContent = "";
+    return;
+  }
+  let remaining = 60;
+  displayEl.textContent = remaining + "s remaining \u2014 keep talking";
+  btn.textContent = "\u23F9\uFE0F Stop Timer";
+  speakingTimers[id] = setInterval(()=>{
+    remaining--;
+    if(remaining<=0){
+      clearInterval(speakingTimers[id]);
+      delete speakingTimers[id];
+      displayEl.textContent = "\u2705 Time's up!";
+      btn.textContent = "\u23F1\uFE0F Start 60s Timer";
+      playBeep();
+    } else {
+      displayEl.textContent = remaining + "s remaining \u2014 keep talking";
+    }
+  },1000);
+}
+let speakingMastery = new Set();
+function renderSpeaking(){
+  const list = document.getElementById('speakingList');
+  const search = document.getElementById('speakingSearch').value.trim().toLowerCase();
+  const onlyRem = document.getElementById('speakingOnlyRemaining').checked;
+  list.innerHTML = "";
+  SPEAKING.forEach(item=>{
+    if(onlyRem && speakingMastery.has(item.id)) return;
+    if(search && !item.q.toLowerCase().includes(search)) return;
+    const isMastered = speakingMastery.has(item.id);
+    const card = document.createElement('div');
+    card.className = "card" + (isMastered?" mastered":"");
+    card.innerHTML = `
+      <div class="card-top"><span class="num">#${item.id}</span></div>
+      <p class="sentence">${item.q}</p>
+      <div class="dict-actions">
+        <button class="listen-btn timer-btn" data-id="${item.id}">\u23F1\uFE0F Start 60s Timer</button>
+        <button class="record-btn" data-id="${item.id}">\uD83C\uDF99\uFE0F Record</button>
+      </div>
+      <p class="reason" id="timer-speak-${item.id}"></p>
+      <div class="rec-playback" id="playback-speak-${item.id}"></div>
+      <button class="reveal-btn" data-id="${item.id}">Reveal model answer</button>
+      <div class="answer-box" id="ans-speak-${item.id}">
+        <p class="answer-line" style="white-space:pre-line;">${item.a}</p>
+        <div class="master-row">
+          <input type="checkbox" id="chk-speak-${item.id}" ${isMastered?"checked":""}>
+          <label for="chk-speak-${item.id}">Practiced</label>
+        </div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  updateSpeakingProgress();
+}
+function updateSpeakingProgress(){
+  const pct = Math.round((speakingMastery.size/SPEAKING.length)*100);
+  document.getElementById('speakingProgText').textContent = `${speakingMastery.size} / ${SPEAKING.length} mastered`;
+  document.getElementById('speakingProgPct').textContent = `${pct}%`;
+  document.getElementById('speakingProgFill').style.width = pct+"%";
+}
+async function saveSpeakingMastery(){
+  try{ await window.storage.set("speaking_mastery", JSON.stringify([...speakingMastery]), false); }catch(e){}
+}
+document.getElementById('speakingList').addEventListener('click',(e)=>{
+  if(e.target.classList.contains('reveal-btn')){
+    const id = e.target.getAttribute('data-id');
+    document.getElementById('ans-speak-'+id).classList.toggle('shown');
+  }
+  if(e.target.classList.contains('timer-btn')){
+    const id = e.target.getAttribute('data-id');
+    toggleSpeakingTimer(id, e.target, document.getElementById('timer-speak-'+id));
+  }
+  if(e.target.classList.contains('record-btn')){
+    const id = e.target.getAttribute('data-id');
+    const playbackEl = document.getElementById('playback-speak-'+id);
+    toggleRecording('speak-'+id, e.target, playbackEl);
+  }
+});
+document.getElementById('speakingList').addEventListener('change',(e)=>{
+  if(e.target.type==="checkbox"){
+    const id = parseInt(e.target.id.replace('chk-speak-',''));
+    if(e.target.checked) speakingMastery.add(id); else speakingMastery.delete(id);
+    saveSpeakingMastery();
+    updateSpeakingProgress();
+    e.target.closest('.card').classList.toggle('mastered', e.target.checked);
+  }
+});
+document.getElementById('speakingSearch').addEventListener('input', renderSpeaking);
+document.getElementById('speakingOnlyRemaining').addEventListener('change', renderSpeaking);
+document.getElementById('speakingReset').addEventListener('click', ()=>{
+  speakingMastery = new Set();
+  saveSpeakingMastery();
+  renderSpeaking();
+});
+
+/* ---------------- MOCK TEST ---------------- */
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+let mockLen = 5;
+document.querySelectorAll('.len-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.len-chip').forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    mockLen = parseInt(chip.getAttribute('data-len'));
+  });
+});
+const MOCK_TIME_PER_Q = 60;
+let mockTest = null;
+function buildMockRounds(n){
+  return [
+    {name:"AMCAT", items: shuffleArr(AMCAT).slice(0,n)},
+    {name:"Versant", items: shuffleArr(VERSANT).slice(0,n)},
+    {name:"Ops", items: shuffleArr(OPS).slice(0,n)},
+    {name:"HR", items: shuffleArr(HR).slice(0,n)}
+  ];
+}
+document.getElementById('startMockBtn').addEventListener('click', startMockTest);
+function startMockTest(){
+  const rounds = buildMockRounds(mockLen);
+  mockTest = {
+    rounds, roundIdx:0, qIdx:0,
+    remainingSec: rounds[0].items.length * MOCK_TIME_PER_Q,
+    timerInterval: null,
+    results: {correct:0, total:0, byRound: rounds.map(r=>({name:r.name, correct:0, total:0}))}
+  };
+  document.getElementById('mockSetup').style.display = 'none';
+  document.getElementById('mockResults').style.display = 'none';
+  document.getElementById('mockRunning').style.display = 'block';
+  startRoundTimer();
+  renderMockQuestion();
+}
+function startRoundTimer(){
+  clearInterval(mockTest.timerInterval);
+  updateMockTimerDisplay();
+  mockTest.timerInterval = setInterval(()=>{
+    mockTest.remainingSec--;
+    if(mockTest.remainingSec<=0){
+      clearInterval(mockTest.timerInterval);
+      finishRound();
+    } else {
+      updateMockTimerDisplay();
+    }
+  },1000);
+}
+function updateMockTimerDisplay(){
+  const m = Math.floor(mockTest.remainingSec/60);
+  const s = mockTest.remainingSec%60;
+  document.getElementById('mockTimer').textContent = `${m}:${s.toString().padStart(2,'0')} remaining`;
+  const round = mockTest.rounds[mockTest.roundIdx];
+  const totalSec = round.items.length*MOCK_TIME_PER_Q;
+  const pct = Math.min(100, Math.round(((totalSec-mockTest.remainingSec)/totalSec)*100));
+  document.getElementById('mockRoundProgress').style.width = pct+"%";
+  document.getElementById('mockRoundLabel').textContent = `Round ${mockTest.roundIdx+1}/4 \u2014 ${round.name} \u2014 Q${mockTest.qIdx+1}/${round.items.length}`;
+}
+function renderMockQuestion(){
+  const round = mockTest.rounds[mockTest.roundIdx];
+  const item = round.items[mockTest.qIdx];
+  const card = document.getElementById('mockQuestionCard');
+  updateMockTimerDisplay();
+  card.innerHTML = `
+    <div class="card-top">
+      <span class="num">${round.name} \u00B7 Q${mockTest.qIdx+1}</span>
+      ${item.tag ? `<span class="stamp ${stampClass(item.tag)}">${item.tag}</span>` : ""}
+    </div>
+    <p class="sentence">${item.q}</p>
+    <button class="reveal-btn" id="mockRevealBtn">Reveal answer</button>
+    <div class="answer-box" id="mockAnswerBox">
+      <p class="answer-line" style="white-space:pre-line;">Answer: <b>${item.a}</b></p>
+      ${item.r ? `<p class="reason">${item.r}</p>` : ""}
+      <div class="controls" style="margin-top:10px;">
+        <button class="btn-ghost" id="mockGotBtn" style="border-color:var(--teal);color:var(--teal);">\u2713 I got this</button>
+        <button class="btn-ghost" id="mockMissBtn" style="border-color:var(--rose);color:var(--rose);">\u2717 I missed this</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('mockRevealBtn').addEventListener('click',()=>{
+    document.getElementById('mockAnswerBox').classList.add('shown');
+  });
+  document.getElementById('mockGotBtn').addEventListener('click',()=>gradeMockQuestion(true));
+  document.getElementById('mockMissBtn').addEventListener('click',()=>gradeMockQuestion(false));
+}
+function gradeMockQuestion(correct){
+  const roundResult = mockTest.results.byRound[mockTest.roundIdx];
+  roundResult.total++;
+  mockTest.results.total++;
+  if(correct){ roundResult.correct++; mockTest.results.correct++; }
+  nextMockQuestion();
+}
+function nextMockQuestion(){
+  const round = mockTest.rounds[mockTest.roundIdx];
+  mockTest.qIdx++;
+  if(mockTest.qIdx >= round.items.length){
+    finishRound();
+  } else {
+    renderMockQuestion();
+  }
+}
+function finishRound(){
+  clearInterval(mockTest.timerInterval);
+  mockTest.roundIdx++;
+  mockTest.qIdx = 0;
+  if(mockTest.roundIdx >= mockTest.rounds.length){
+    showMockResults();
+  } else {
+    mockTest.remainingSec = mockTest.rounds[mockTest.roundIdx].items.length * MOCK_TIME_PER_Q;
+    startRoundTimer();
+    renderMockQuestion();
+  }
+}
+document.getElementById('mockFinishRoundBtn').addEventListener('click', finishRound);
+document.getElementById('mockQuitBtn').addEventListener('click', ()=>{
+  if(mockTest) clearInterval(mockTest.timerInterval);
+  document.getElementById('mockRunning').style.display='none';
+  document.getElementById('mockSetup').style.display='block';
+  mockTest = null;
+});
+function showMockResults(){
+  document.getElementById('mockRunning').style.display='none';
+  const resEl = document.getElementById('mockResults');
+  resEl.style.display='block';
+  const pct = mockTest.results.total ? Math.round((mockTest.results.correct/mockTest.results.total)*100) : 0;
+  resEl.innerHTML = `
+    <h3 style="font-family:'Lora',serif;font-size:19px;margin:0 0 10px;">Results</h3>
+    <div class="template-box">
+      <p style="margin:0 0 10px;font-size:16px;"><b>${mockTest.results.correct} / ${mockTest.results.total} correct \u2014 ${pct}%</b></p>
+      ${mockTest.results.byRound.map(r=>`<p style="font-size:13.5px;margin:4px 0;">${r.name}: ${r.correct}/${r.total}</p>`).join('')}
+    </div>
+    <button class="reveal-btn" id="mockRetakeBtn">Take another mock test</button>
+  `;
+  document.getElementById('mockRetakeBtn').addEventListener('click', ()=>{
+    resEl.style.display='none';
+    document.getElementById('mockSetup').style.display='block';
+  });
+}
+
+renderEmailTopics();
+renderPassages();
+loadStorage();
+</script>
+</body>
+</html>
