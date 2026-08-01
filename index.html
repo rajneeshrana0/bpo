@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rajneesh's Interview Ticket Queue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF2F7;
+    --panel:#FFFFFF;
+    --ink:#16202B;
+    --ink-soft:#5B6B7A;
+    --ink-faint:#8A97A6;
+    --line:#DBE2EA;
+    --resolve:#0F9D8B;
+    --resolve-soft:#E1F4F1;
+    --open:#C9821A;
+    --open-soft:#FBEEDA;
+    --voice:#4C5FD5;
+    --voice-soft:#EAEBFA;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(22,32,43,0.05), 0 10px 28px -16px rgba(22,32,43,0.18);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{ max-width:860px; margin:0 auto; padding:20px 16px 64px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:8px 2px 20px; }
+  .hero-top{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .mark{ width:34px; height:34px; flex-shrink:0; color:var(--voice); }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:600;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(1.5rem, 4.5vw, 2.05rem); line-height:1.15; margin:2px 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .hero p.sub{ color:var(--ink-soft); font-size:0.95rem; line-height:1.55; margin:0 0 18px; max-width:60ch; }
+
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:6px; }
+  .stat{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:12px 14px; box-shadow:var(--shadow);
+  }
+  .stat .val{ font-family:var(--font-mono); font-weight:600; font-size:1.35rem; color:var(--ink); }
+  .stat .lbl{ font-size:0.7rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; margin-top:2px; }
+  .stat.resolve .val{ color:var(--resolve); }
+  .stat.rate .val{ color:var(--voice); }
+  .hero-note{ font-size:0.8rem; color:var(--ink-faint); margin-top:10px; line-height:1.5; }
+  .hero-note b{ color:var(--ink-soft); }
+
+  /* ---------- Controls ---------- */
+  .controls{ position:sticky; top:0; z-index:5; background:var(--paper); padding:14px 0 10px; margin-bottom:4px; }
+  .search-row{ position:relative; margin-bottom:10px; }
+  .search-row svg{ position:absolute; left:13px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-faint); }
+  #search{
+    width:100%; padding:11px 14px 11px 36px; border-radius:11px; border:1px solid var(--line);
+    background:var(--panel); font-family:var(--font-body); font-size:0.92rem; color:var(--ink);
+    box-shadow:var(--shadow); outline:none;
+  }
+  #search:focus{ border-color:var(--voice); }
+  #search::placeholder{ color:var(--ink-faint); }
+
+  .chip-scroller{ position:relative; }
+  .chips{
+    display:flex; gap:8px; overflow-x:auto; padding:2px 28px 6px; scrollbar-width:none;
+    scroll-behavior:smooth; scroll-snap-type:x proximity;
+  }
+  .chips::-webkit-scrollbar{ display:none; }
+  .chip{
+    flex-shrink:0; font-family:var(--font-body); font-size:0.8rem; font-weight:600;
+    padding:7px 13px; border-radius:999px; border:1px solid var(--line); background:var(--panel);
+    color:var(--ink-soft); cursor:pointer; white-space:nowrap; scroll-snap-align:start;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .chip span{ font-family:var(--font-mono); font-weight:500; color:var(--ink-faint); margin-left:5px; }
+  .chip.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .chip.active span{ color:#c7d0da; }
+  .chip:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid var(--voice); outline-offset:2px; }
+
+  .chip-fade{
+    position:absolute; top:0; bottom:6px; width:26px; pointer-events:none; z-index:2;
+    transition:opacity .2s ease;
+  }
+  .chip-fade.left{ left:0; background:linear-gradient(to right, var(--paper), rgba(238,242,247,0)); }
+  .chip-fade.right{ right:0; background:linear-gradient(to left, var(--paper), rgba(238,242,247,0)); }
+  .chip-fade.hide{ opacity:0; }
+
+  .chip-nav{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
+    background:var(--panel); color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:var(--shadow); font-size:0.85rem; line-height:1; padding:0;
+    transition:opacity .15s ease;
+  }
+  .chip-nav.prev{ left:0; }
+  .chip-nav.next{ right:0; }
+  .chip-nav.hide{ opacity:0; pointer-events:none; }
+
+  /* ---------- Category section ---------- */
+  .cat-section{ margin:22px 0 26px; }
+  .cat-head{ margin-bottom:10px; padding:0 2px; }
+  .cat-head h2{ font-family:var(--font-display); font-size:1.05rem; margin:0 0 3px; }
+  .cat-head p{ font-size:0.82rem; color:var(--ink-soft); margin:0; }
+
+  /* ---------- Ticket card ---------- */
+  .ticket{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:9px; box-shadow:var(--shadow); overflow:hidden;
+  }
+  .ticket-top{ display:flex; align-items:stretch; }
+  .ticket-main{
+    flex:1; display:flex; align-items:center; gap:10px; text-align:left;
+    background:none; border:none; padding:13px 4px 13px 14px; cursor:pointer;
+    font-family:var(--font-body); color:var(--ink); min-width:0;
+  }
+  .ticket-id{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-faint); flex-shrink:0; }
+  .ticket-q{ font-size:0.9rem; font-weight:600; line-height:1.4; flex:1; min-width:0; }
+  .chevron{ flex-shrink:0; color:var(--ink-faint); transition:transform .2s ease; font-size:0.8rem; }
+  .ticket-main[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
+  .status-pill{
+    flex-shrink:0; align-self:center; margin:0 12px; font-family:var(--font-body);
+    font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    padding:5px 11px; border-radius:999px; cursor:pointer; transition:all .15s ease;
+  }
+  .status-pill[data-state="open"]{ background:var(--open-soft); color:var(--open); border:1px solid #ecd3a3; }
+  .status-pill[data-state="resolved"]{ background:var(--resolve-soft); color:var(--resolve); border:1px solid #b7e2da; }
+
+  .listen-btn{
+    flex-shrink:0; align-self:center; width:30px; height:30px; margin-left:4px;
+    border-radius:50%; border:1px solid var(--line); background:var(--panel);
+    color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all .15s ease; padding:0;
+  }
+  .listen-btn svg{ width:15px; height:15px; }
+  .listen-btn .icon-stop{ display:none; }
+  .listen-btn:hover{ border-color:var(--voice); color:var(--voice); }
+  .listen-btn.speaking{ background:var(--voice-soft); border-color:var(--voice); color:var(--voice); }
+  .listen-btn.speaking .icon-speak{ display:none; }
+  .listen-btn.speaking .icon-stop{ display:block; }
+  .listen-btn.speaking svg{ animation:pulse-speak 1s ease-in-out infinite; }
+  @keyframes pulse-speak{ 0%,100%{ opacity:1; } 50%{ opacity:0.55; } }
+
+  .answer-wrap{ max-height:0; overflow:hidden; transition:max-height .28s ease; }
+  .answer-inner{ padding:0 16px 16px 14px; }
+  .answer-label{
+    display:block; font-family:var(--font-mono); font-size:0.66rem; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--resolve); font-weight:600; margin-bottom:5px;
+  }
+  .answer-text{ margin:0; font-size:0.88rem; line-height:1.6; color:var(--ink-soft); }
+
+  .empty-state{ text-align:center; padding:50px 16px; color:var(--ink-faint); }
+  .empty-state svg{ width:32px; height:32px; margin-bottom:10px; color:var(--ink-faint); }
+  .empty-state p{ margin:0; font-size:0.9rem; }
+
+  /* ---------- Tips panel ---------- */
+  .tips-panel{
+    margin-top:26px; border-radius:var(--radius); border:1px solid var(--line);
+    background:var(--voice-soft); overflow:hidden;
+  }
+  .tips-toggle{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:none; border:none; padding:14px 16px; cursor:pointer; font-family:var(--font-display);
+    font-weight:600; font-size:0.92rem; color:var(--voice); text-align:left;
+  }
+  .tips-toggle .chevron{ color:var(--voice); }
+  .tips-body{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .tips-list{ margin:0; padding:0 16px 16px 34px; font-size:0.86rem; color:#38408f; line-height:1.7; }
+  .tips-list li{ margin-bottom:4px; }
+
+  /* ---------- Footer ---------- */
+  .footer-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; padding:0 2px; flex-wrap:wrap; }
+  .reset-btn{
+    background:none; border:1px solid var(--line); color:var(--ink-soft); font-family:var(--font-body);
+    font-size:0.78rem; font-weight:600; padding:8px 14px; border-radius:9px; cursor:pointer;
+  }
+  .reset-btn:hover{ border-color:var(--ink-faint); color:var(--ink); }
+  .footer-note{ font-size:0.75rem; color:var(--ink-faint); }
+
+  @media (max-width:480px){
+    .stats{ gap:8px; }
+    .stat{ padding:10px; }
+    .stat .val{ font-size:1.15rem; }
+    .ticket-q{ font-size:0.87rem; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-top">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 26C8 15.5066 16.5066 7 27 7C36.9411 7 45 15.0589 45 25V32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <rect x="4" y="24" width="9" height="14" rx="4" fill="currentColor"/>
+        <rect x="35" y="24" width="9" height="14" rx="4" fill="currentColor"/>
+        <path d="M40 38V40C40 42.2091 38.2091 44 36 44H30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="eyebrow">Prep Queue &middot; Concentrix &amp; BPO Rounds</span>
+    </div>
+    <h1>Rajneesh's Interview Ticket Queue</h1>
+    <p class="sub">Every question from your prep notes is logged here as a ticket. Open one, read the resolution in plain, simple language, say it out loud a couple of times, then mark it Resolved.</p>
+
+    <div class="stats">
+      <div class="stat total"><div class="val" id="stat-total">0</div><div class="lbl">Tickets in queue</div></div>
+      <div class="stat resolve"><div class="val" id="stat-resolved">0</div><div class="lbl">Resolved</div></div>
+      <div class="stat rate"><div class="val" id="stat-rate">0%</div><div class="lbl">Resolution rate</div></div>
+    </div>
+    <p class="hero-note">Works like a helpdesk queue &mdash; same idea as <b>Freshdesk</b> or <b>Zoho</b> from your resume. Open a ticket, read the fix, resolve it. Your progress is saved on this device.</p>
+  </div>
+
+  <div class="controls">
+    <div class="search-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      <input id="search" type="text" placeholder="Search any question or answer&hellip;" autocomplete="off" />
+    </div>
+    <div class="chip-scroller">
+      <div class="chip-fade left" id="fade-left"></div>
+      <div class="chips" id="chips"></div>
+      <div class="chip-fade right" id="fade-right"></div>
+      <button class="chip-nav prev" id="chip-prev" aria-label="Scroll tabs left">&#8249;</button>
+      <button class="chip-nav next" id="chip-next" aria-label="Scroll tabs right">&#8250;</button>
+    </div>
+  </div>
+
+  <main id="ticket-list"></main>
+
+  <div class="tips-panel">
+    <button class="tips-toggle" id="tips-toggle" aria-expanded="false" aria-controls="tips-body">
+      <span>Interview day tips (read once before you walk in)</span>
+      <span class="chevron">&#9662;</span>
+    </button>
+    <div class="tips-body" id="tips-body">
+      <ul class="tips-list">
+        <li>Speak slowly and clearly &mdash; don't rush your answers.</li>
+        <li>Smile while answering, even on a phone round.</li>
+        <li>Maintain eye contact in a video or in-person round.</li>
+        <li>Avoid one-word answers &mdash; always add a short reason or example.</li>
+        <li>Never say 'I don't know' &mdash; instead say 'I'm not sure, but I'd like to learn.'</li>
+        <li>Don't criticize any previous employer, ever.</li>
+        <li>Keep each answer between 45&ndash;90 seconds &mdash; not shorter, not longer.</li>
+        <li>Back up answers with real examples from your projects wherever you can.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <button class="reset-btn" id="reset-btn">Reset all progress</button>
+    <span class="footer-note">104 tickets across 12 rounds</span>
+  </div>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------
+// DATA
+// ---------------------------------------------------------------
+const CATEGORIES = [
+  { id:"hr", label:"HR Round", prefix:"HR", blurb:"Opening questions about you, your background and your intent." },
+  { id:"cs", label:"Customer Service", prefix:"CS", blurb:"Core support concepts and handling tough customer moments." },
+  { id:"ops", label:"Operations Round", prefix:"OPS", blurb:"Process thinking, pressure handling and BPO metrics." },
+  { id:"client", label:"Client Round", prefix:"CLI", blurb:"Trust and process-fit questions from the client panel." },
+  { id:"behavioral", label:"Behavioral", prefix:"BEH", blurb:"Real examples from your own projects, told simply (STAR style)." },
+  { id:"comm", label:"Communication Round", prefix:"COM", blurb:"Describe-yourself prompts and one-minute speaking topics." },
+  { id:"grammar", label:"Grammar & Vocabulary", prefix:"GRA", blurb:"Quick tips for the written English / grammar round." },
+  { id:"chat", label:"Chat Support", prefix:"CHT", blurb:"Typing, multitasking and professional email writing." },
+  { id:"sales", label:"Sales Questions", prefix:"SAL", blurb:"Convincing, rapport-building and objection handling." },
+  { id:"resume", label:"Resume-Based", prefix:"RES", blurb:"Be ready to explain every single line of your resume." },
+  { id:"trap", label:"HR Trap Questions", prefix:"TRP", blurb:"Tricky questions &mdash; answer confidently, don't overthink." },
+  { id:"final", label:"Final Round", prefix:"FIN", blurb:"What to ask the interviewer once they open the floor to you." },
+];
+
+const TICKETS = {
+  hr: [
+    { q:"Tell me about yourself.", a:"My name is Rajneesh Rana. I am from Charkhi Dadri, Haryana, and I live in Noida now. I did my Diploma in Computer Science from Government Polytechnic Jhajjar. I have built two projects &mdash; a Customer Feedback Management System and a Sales Pipeline Tracker &mdash; and both taught me how to talk to customers, solve problems, and manage data. I am comfortable with CRM tools, Excel, email and chat support. I am looking for a long-term career in customer service where I can learn and grow." },
+    { q:"Introduce your family.", a:"My family has four members &mdash; my father, my mother, my one sibling, and me. My father is a farmer and my mother takes care of our home. They have always supported my education and they motivate me to work hard and become independent." },
+    { q:"Why should we hire you?", a:"I have strong communication skills and I genuinely enjoy helping people. I already have hands-on experience with CRM tools like Zoho and Freshdesk, Excel, and chat support through my own projects. I learn quickly, stay calm under pressure, and I am ready to work hard and grow with this company." },
+    { q:"Why do you want this job?", a:"I enjoy talking to people and solving their problems. Customer service lets me use my communication skills every single day while helping customers. It also gives me a clear path to grow &mdash; new skills, new challenges, and a stable career." },
+    { q:"Tell me about your strengths.", a:"I listen carefully, I learn new things quickly, I stay calm when things get stressful, and I keep a positive attitude. I also work well in a team, the way I did while building the Sales Pipeline Tracker with other students." },
+    { q:"Tell me about your weakness.", a:"Earlier, I used to spend too much time trying to make every small task perfect. Now I have learned to balance quality with speed, so I finish my work on time without losing accuracy." },
+    { q:"Why BPO?", a:"BPO gives me the chance to work with people from different backgrounds, including international customers. It helps me improve my communication and problem-solving skills every day, and it is a fast-growing industry with real career growth." },
+    { q:"Why should we not hire you?", a:"I don't think there is a strong reason to not hire me. I may not know every process yet, but I learn quickly, accept feedback openly, and work hard to improve." },
+    { q:"Why do you want to leave your previous job / why is there a gap?", a:"I am looking for a role with better growth and learning. I want to work with a company that gives me the chance to build long-term skills in customer service. (Keep this positive &mdash; never speak negatively about a previous employer.)" },
+  ],
+  cs: [
+    { q:"What is customer service?", a:"Customer service means understanding what the customer needs and solving their problem quickly and politely, so they feel happy with the company." },
+    { q:"Why customer service?", a:"I like talking to people and helping them. This field lets me solve real problems every day while improving my communication skills." },
+    { q:"What are the qualities of a good customer service representative?", a:"Good listening, patience, empathy, clear speaking, quick problem-solving, a positive attitude, managing time well, and knowing the product properly." },
+    { q:"Difference between sympathy and empathy?", a:"Sympathy means feeling sorry for someone. Empathy means understanding how the person feels, as if you are in their shoes, without getting emotional yourself. Customer service needs empathy because it helps us give better support." },
+    { q:"How will you handle an angry customer?", a:"I will stay calm and let the customer speak first without interrupting. Then I will listen carefully, say sorry for the trouble, ask the right questions, and give the best solution I can. If I can't fix it right away, I will give a clear timeline and thank them for their patience." },
+    { q:"What if the customer keeps shouting?", a:"I will stay calm and never argue back. I will politely acknowledge their frustration and focus on solving the issue. If it doesn't improve, I will follow company procedure and involve my supervisor." },
+    { q:"What is First Call Resolution (FCR)?", a:"It means solving the customer's problem in the very first call or chat, without making them contact us again." },
+    { q:"What is customer satisfaction?", a:"It means the customer got what they expected &mdash; or more &mdash; from our service, and they feel genuinely happy about the experience." },
+    { q:"What is escalation?", a:"When I can't solve a problem at my level, I pass it on to a senior or the right department, following the company's steps." },
+  ],
+  ops: [
+    { q:"Why do you think you'll succeed in customer service?", a:"I enjoy talking to people, I am patient, I learn fast, and I stay calm while solving problems. These qualities matter most in this field." },
+    { q:"What will you do if you don't know the answer?", a:"I will tell the customer honestly that I need to check, look at my resources or ask my supervisor, and then give the correct answer instead of guessing." },
+    { q:"What if two customers are waiting?", a:"I will follow the company's priority rules, acknowledge both customers, and let them know how long they may need to wait." },
+    { q:"How do you work under pressure?", a:"I stay calm, list my tasks by priority, and finish them one by one without dropping the quality of my work." },
+    { q:"What is AHT (Average Handle Time)?", a:"It is the average time taken to complete one customer call or chat, including the talk time and the work done right after the call." },
+    { q:"What is CSAT (Customer Satisfaction Score)?", a:"It is a score that shows how happy customers are with the service they received." },
+    { q:"What is FCR (First Call Resolution)?", a:"It means the customer's issue got solved in the very first interaction itself." },
+    { q:"What is SLA (Service Level Agreement)?", a:"It is the agreed time limit within which a company promises to respond to or resolve a customer's issue." },
+  ],
+  client: [
+    { q:"Why should our client trust you?", a:"I speak professionally, listen carefully, follow the company's rules, keep information private, and always try to give an accurate, timely solution." },
+    { q:"Why do you want to work on this process?", a:"I enjoy helping customers and solving their problems. This process lets me use and improve my communication skills while keeping customers happy." },
+    { q:"If a customer asks something outside policy?", a:"I will politely explain what the company policy allows, offer any option I genuinely can, and never promise something I cannot deliver." },
+    { q:"Why should the client choose you?", a:"I focus on the customer, I learn quickly, I adapt to new situations, and I always try to give professional, reliable service." },
+  ],
+  behavioral: [
+    { q:"Tell me about a challenge you faced.", a:"While building the Customer Feedback Management System, I had to organize a lot of messy feedback data. I broke it into small steps, used Excel dashboards to sort it, and finished on time. It ended up reducing the resolution time for repeated complaints by 30%." },
+    { q:"Describe a time when you solved someone's problem.", a:"During the feedback project, I noticed the same complaints kept repeating every week. I built a simple report that showed the top issues to the team leads, which helped them fix the root cause faster." },
+    { q:"Tell me about a mistake you made.", a:"Early on, I spent too much time perfecting small details in my Excel sheets, which slowed down my work. I learned to set a time limit for each task, which helped me balance quality and speed." },
+    { q:"Tell me about a difficult customer (or teammate).", a:"In a group project, one teammate was frustrated about missing data. I listened to his concern first, then calmly explained the issue and fixed it together with him. It taught me that listening first always calms a tense situation." },
+    { q:"Tell me about teamwork.", a:"I built the Sales Pipeline Tracker for a team of 10 sales associates. I made sure everyone understood how to use it, took their feedback, and improved the tool so the whole team could manage over 500 leads easily." },
+    { q:"Describe a stressful situation.", a:"Before submitting my feedback management project, I had a tight deadline and a lot of data to organize. I stayed calm, worked step by step, and still finished it on time with accurate results." },
+    { q:"How do you handle criticism?", a:"I listen carefully without taking it personally, understand exactly what needs improvement, and use that feedback to do better the next time." },
+    { q:"How do you prioritize work?", a:"I list my tasks and handle the most urgent or important ones first, while still keeping track of everything else on my list." },
+    { q:"Have you ever missed a deadline?", a:"I always try to plan ahead so this doesn't happen. If I ever feel a deadline is at risk, I inform my team early and ask for help so we can still finish on time." },
+    { q:"How do you motivate yourself?", a:"I focus on my long-term goal of building a strong career. Small wins, like finishing a task well, also keep me motivated to push further." },
+  ],
+  comm: [
+    { q:"Describe your hometown.", a:"I am from Charkhi Dadri, a small town in Haryana. It is peaceful, with friendly people and simple living. I grew up there before moving to Noida for better opportunities." },
+    { q:"Describe your favorite movie.", a:"I enjoy movies that show a person working hard against difficulties to reach their goal, because they remind me to keep trying even when things get tough." },
+    { q:"Describe your favorite teacher.", a:"My favorite teacher always encouraged us to ask questions and never made us feel afraid of getting things wrong. That habit of asking and learning has stayed with me." },
+    { q:"Describe your last vacation.", a:"My last trip was a simple family trip where we relaxed and spent time together, away from our daily routine. It left me feeling refreshed and ready to work again." },
+    { q:"Describe your best friend.", a:"My best friend is someone who is always honest with me and supports me during tough times. We push each other to keep improving." },
+    { q:"Describe your favorite festival.", a:"I enjoy Diwali the most. It brings my whole family together, and I love how it fills the house with lights, sweets, and happiness." },
+    { q:"Describe your college.", a:"I studied at Government Polytechnic Jhajjar for my Diploma in Computer Science. It gave me a good mix of technical learning and practical, hands-on projects." },
+    { q:"Describe your daily routine.", a:"I start my day early, plan my tasks, work on my learning and my projects, and make time to stay updated with new skills." },
+    { q:"Describe your career goal.", a:"My goal is to build a stable, long-term career in customer service, keep learning new skills, and eventually grow into a role where I can lead a team." },
+    { q:"Describe your hobbies.", a:"I enjoy learning new things related to technology and communication, and I like solving practical problems in my free time." },
+    { q:"Speak 1 minute: Artificial Intelligence.", a:"AI means machines that can learn and make decisions like humans. It is already used in chatbots, recommendations, and customer service tools. It helps companies solve problems faster, but human skills like empathy are still very important." },
+    { q:"Speak 1 minute: Cricket.", a:"Cricket is one of the most popular sports in India. It brings people together, and it teaches teamwork, patience, and handling pressure &mdash; skills that help in daily life and at work too." },
+    { q:"Speak 1 minute: Climate Change.", a:"Climate change means the Earth's weather patterns are shifting because of pollution and human activity. It causes problems like extreme heat and unpredictable rain. Small steps, like saving electricity and cutting waste, genuinely help." },
+    { q:"Speak 1 minute: Social Media.", a:"Social media helps people connect and share information quickly. It is useful for learning and business, but it should be used carefully to avoid wasting time or spreading wrong information." },
+    { q:"Speak 1 minute: Internet.", a:"The internet has changed how we learn, work, and communicate. It gives instant access to information and helps businesses reach customers faster, including through chat and email support." },
+    { q:"Speak 1 minute: Education.", a:"Education gives people the knowledge and skills to build a better future. It isn't only about degrees &mdash; practical skills like communication and problem-solving matter just as much in real jobs." },
+    { q:"Speak 1 minute: Mobile Phones.", a:"Mobile phones have made communication instant and easy. They help us stay connected with customers, use apps for work, and access information anytime, anywhere." },
+    { q:"Speak 1 minute: Online Shopping.", a:"Online shopping lets people buy products from home and save time. Good customer support is very important here, since the customer can't see the product in person and needs quick help if something goes wrong." },
+    { q:"Speak 1 minute: Work From Home.", a:"Work from home gives flexibility and saves travel time. It also needs good self-discipline and clear communication, since the team isn't sitting together in one place." },
+    { q:"Speak 1 minute: Digital India.", a:"Digital India is a government initiative to make services available online, like banking, learning, and government work. It helps even small towns get access to modern facilities." },
+  ],
+  grammar: [
+    { q:"Correct the sentence &mdash; quick tip.", a:"Read the sentence twice. Check subject-verb agreement (he goes, they go) and word order before you answer." },
+    { q:"Find the error &mdash; quick tip.", a:"Look at tense, articles (a / an / the), and singular-plural matching first &mdash; these are the most common mistakes." },
+    { q:"Active and Passive Voice &mdash; quick tip.", a:"Active: 'I completed the task.' Passive: 'The task was completed by me.' Active voice sounds more direct and confident in an interview." },
+    { q:"Tenses &mdash; quick tip.", a:"Use past tense for what you did ('I built...'), present tense for what you do now ('I work...'), and future tense for your goals ('I will grow...')." },
+    { q:"Synonyms &mdash; quick tip.", a:"Practice simple word swaps: happy &rarr; glad, quick &rarr; fast, calm &rarr; relaxed. This helps you sound natural, not repetitive." },
+    { q:"Antonyms &mdash; quick tip.", a:"Know common opposites used in this field: patient &harr; impatient, satisfied &harr; dissatisfied, resolve &harr; escalate." },
+    { q:"Articles &mdash; quick tip.", a:"Use 'a' before consonant sounds, 'an' before vowel sounds, and 'the' for something specific that was already mentioned." },
+    { q:"Prepositions &mdash; quick tip.", a:"Common BPO phrases: 'assist with', 'apologize for', 'follow up on', 'resolve an issue'. Practice saying these out loud." },
+    { q:"Reading comprehension &mdash; quick tip.", a:"Read the passage once fully, then read the questions, then go back and find the exact answer in the text." },
+    { q:"Vocabulary &mdash; quick tip.", a:"Keep a small list of BPO words ready and practiced: resolve, escalate, assist, prioritize, follow-up, satisfaction." },
+  ],
+  chat: [
+    { q:"How fast can you type?", a:"I can type accurately at a comfortable speed, and I keep practicing to improve it further, since both speed and accuracy matter in chat support." },
+    { q:"How do you handle multiple chats?", a:"I stay organized by keeping track of each conversation, replying quickly with short and clear answers, and prioritizing based on urgency, so no customer feels ignored." },
+    { q:"How do you write professional emails?", a:"I keep emails short and clear, start with a polite greeting, explain the solution step by step, and end with a helpful closing line." },
+    { q:"Difference between chat and voice support?", a:"In voice support, I speak directly and must respond instantly. In chat support, I can think a little more before replying, but I must write clearly and avoid grammar mistakes since the customer reads every word." },
+    { q:"How do you avoid grammar mistakes?", a:"I read my message once before sending, keep sentences short and simple, and rely on standard, polite phrases I have already practiced." },
+  ],
+  sales: [
+    { q:"How will you convince a customer?", a:"I focus on understanding what the customer actually needs, then explain how the product or service solves that specific need, in simple words backed by facts." },
+    { q:"Difference between upselling and cross-selling?", a:"Upselling means offering a better or upgraded version of what the customer already wants. Cross-selling means offering a related product alongside it. I used similar thinking while managing leads in my Sales Pipeline Tracker project." },
+    { q:"How do you build rapport?", a:"I greet the customer warmly, listen to their needs first, and speak in a friendly, respectful tone so they feel comfortable." },
+    { q:"How do you overcome objections?", a:"I listen to the concern fully, acknowledge it, and then explain how the product or service actually solves that specific worry, using a clear example." },
+    { q:"What is lead generation?", a:"It means finding and collecting potential customers who might be interested in a product, so the sales team can follow up with them. I organized leads this way in my Sales Pipeline Tracker, which tracked over 500 active leads." },
+  ],
+  resume: [
+    { q:"Customer Feedback Management System", a:"I built a system using Google Forms and Excel dashboards to collect and study customer feedback. It helped the team spot repeated complaints and cut resolution time by 30%, and I shared weekly reports with team leads." },
+    { q:"Sales Pipeline Tracker", a:"I created an Excel-based tracker with automatic status updates and follow-up reminders. A team of 10 sales associates used it to manage more than 500 leads, and it improved our conversion rate." },
+    { q:"CRM certification", a:"I completed a Customer Relationship Management certificate on Coursera, where I learned how to manage customer data and build long-term relationships using CRM tools." },
+    { q:"Excel dashboard", a:"I used Excel to build dashboards that showed feedback trends and complaint patterns clearly, so the team could make quick decisions." },
+    { q:"Google Forms", a:"I used Google Forms to collect customer feedback directly, which fed straight into my Excel dashboard for analysis." },
+    { q:"Zoho CRM", a:"Zoho CRM is a tool used to store customer details, track conversations, and manage the sales process. I have hands-on familiarity with it for customer and lead management." },
+    { q:"Freshdesk", a:"Freshdesk is a helpdesk tool used to manage customer support tickets. I have working knowledge of using it to track and resolve customer queries &mdash; it's actually the same idea behind this ticket queue you're using right now." },
+    { q:"Chat Support", a:"I have practiced handling customer queries over chat, replying clearly and quickly while keeping a polite, professional tone." },
+    { q:"Complaint Handling", a:"Through my feedback management project, I learned how to identify the root cause of a complaint and fix it at the source, not just reply to it." },
+    { q:"Lead Generation", a:"In my Sales Pipeline Tracker project, I organized incoming leads, tracked their status, and made sure none were missed through automatic follow-up reminders." },
+    { q:"Cold Calling", a:"While managing the sales pipeline, I understood how important the first contact call is &mdash; being clear, polite, and quickly explaining the value to the customer." },
+    { q:"Follow-ups", a:"My Sales Pipeline Tracker had automatic follow-up reminders, which taught me how consistent follow-up improves conversion and keeps customers engaged." },
+    { q:"Customer Relationship Management (CRM)", a:"CRM means managing all customer interactions and data in one place, so a company can serve customers better and build long-term relationships. I studied this in my Coursera certification and applied similar thinking in my own projects." },
+  ],
+  trap: [
+    { q:"Why do you have a gap?", a:"I used this time to build practical skills &mdash; I completed certifications in CRM, Sales, and Business Communication, and worked on real projects to prepare myself better for this role." },
+    { q:"Can you work night shifts?", a:"Yes, I am comfortable working night shifts as per company requirements." },
+    { q:"Can you relocate?", a:"Yes, I am open to relocating if the role requires it." },
+    { q:"Are you comfortable with rotational shifts?", a:"Yes, I can adjust to rotational shifts as needed." },
+    { q:"What are your salary expectations?", a:"I am looking for a fair salary as per company standards and my skill set, and I am open to discussing this further based on the role and responsibilities." },
+    { q:"Why should we choose you over other candidates?", a:"I bring hands-on project experience in customer feedback handling and sales tracking, along with strong communication skills and a genuine interest in growing in this field." },
+    { q:"What if your manager scolds you?", a:"I will listen calmly, understand what went wrong, and work on improving instead of reacting emotionally." },
+    { q:"What if your customer abuses you?", a:"I will stay calm and professional, avoid arguing back, and follow company guidelines, involving my supervisor if needed." },
+    { q:"Will you work on weekends?", a:"Yes, I am flexible and willing to work weekends as required by the company." },
+    { q:"Where do you see yourself in five years?", a:"I see myself growing into a senior or team lead role, having built strong expertise in customer service and mentoring new team members." },
+  ],
+  final: [
+    { q:"Do you have any questions for us?", a:"Yes. I would ask: What training program do you provide for new joiners? What are the growth opportunities in this role? How is performance measured here? What does a typical workday look like? What skills do your top performers usually have?" },
+  ],
+};
+
+// ---------------------------------------------------------------
+// BUILD FLAT LIST + STATE
+// ---------------------------------------------------------------
+const ALL_TICKETS = [];
+CATEGORIES.forEach(cat => {
+  (TICKETS[cat.id] || []).forEach((t, idx) => {
+    ALL_TICKETS.push({
+      id: cat.prefix + "-" + String(idx + 1).padStart(2, "0"),
+      catId: cat.id,
+      q: t.q,
+      a: t.a
+    });
+  });
+});
+
+const state = { category: "all", query: "", status: {} };
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+}
+
+// ---------------------------------------------------------------
+// STORAGE
+// ---------------------------------------------------------------
+async function loadProgress(){
+  try{
+    const res = await window.storage.get("ticket-progress", false);
+    if (res && res.value) state.status = JSON.parse(res.value);
+  }catch(e){
+    state.status = {};
+  }
+}
+async function saveProgress(){
+  try{
+    await window.storage.set("ticket-progress", JSON.stringify(state.status), false);
+  }catch(e){
+    console.error("Could not save progress", e);
+  }
+}
+
+// ---------------------------------------------------------------
+// STATS + CHIPS
+// ---------------------------------------------------------------
+function computeStats(){
+  const total = ALL_TICKETS.length;
+  const resolved = ALL_TICKETS.filter(t => state.status[t.id] === "resolved").length;
+  const rate = total ? Math.round((resolved / total) * 100) : 0;
+  return { total, resolved, rate };
+}
+
+function updateStatsDOM(){
+  const s = computeStats();
+  document.getElementById("stat-total").textContent = s.total;
+  document.getElementById("stat-resolved").textContent = s.resolved;
+  document.getElementById("stat-rate").textContent = s.rate + "%";
+}
+
+function categoryCounts(catId){
+  const list = catId === "all" ? ALL_TICKETS : ALL_TICKETS.filter(t => t.catId === catId);
+  const resolved = list.filter(t => state.status[t.id] === "resolved").length;
+  return { total: list.length, resolved };
+}
+
+function renderChips(){
+  const chipsEl = document.getElementById("chips");
+  const allCounts = categoryCounts("all");
+  let html = "";
+  html += `<button class="chip ${state.category === "all" ? "active" : ""}" data-cat="all">All<span>${allCounts.resolved}/${allCounts.total}</span></button>`;
+  CATEGORIES.forEach(cat => {
+    const c = categoryCounts(cat.id);
+    html += `<button class="chip ${state.category === cat.id ? "active" : ""}" data-cat="${cat.id}">${cat.label}<span>${c.resolved}/${c.total}</span></button>`;
+  });
+  chipsEl.innerHTML = html;
+  updateChipNav();
+}
+
+function updateChipNav(){
+  const chipsEl = document.getElementById("chips");
+  const prev = document.getElementById("chip-prev");
+  const next = document.getElementById("chip-next");
+  const fadeL = document.getElementById("fade-left");
+  const fadeR = document.getElementById("fade-right");
+  if (!chipsEl || !prev || !next) return;
+  const maxScroll = chipsEl.scrollWidth - chipsEl.clientWidth;
+  const scrollable = maxScroll > 8;
+  const atStart = chipsEl.scrollLeft <= 4;
+  const atEnd = chipsEl.scrollLeft >= maxScroll - 4;
+  [prev, fadeL].forEach(el => el && el.classList.toggle("hide", !scrollable || atStart));
+  [next, fadeR].forEach(el => el && el.classList.toggle("hide", !scrollable || atEnd));
+}
+
+// ---------------------------------------------------------------
+// TICKET LIST RENDER
+// ---------------------------------------------------------------
+function ticketCardHtml(t){
+  const resolved = state.status[t.id] === "resolved";
+  return `
+    <article class="ticket" data-id="${t.id}">
+      <div class="ticket-top">
+        <button class="ticket-main" data-action="expand" data-id="${t.id}" aria-expanded="false" aria-controls="ans-${t.id}">
+          <span class="ticket-id">#${t.id}</span>
+          <span class="ticket-q">${escapeHtml(t.q)}</span>
+          <span class="chevron">&#9662;</span>
+        </button>
+        <button class="listen-btn" data-action="listen" data-id="${t.id}" aria-label="Listen to this question and answer in US English" title="Listen (US English)">
+          <svg class="icon-speak" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 9v6h4l5 5V4L8 9H4z"/>
+            <path d="M16.2 8.8a5 5 0 010 6.4"/>
+            <path d="M18.8 6.2a9 9 0 010 11.6"/>
+          </svg>
+          <svg class="icon-stop" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+        </button>
+        <button class="status-pill" data-action="status" data-id="${t.id}" data-state="${resolved ? "resolved" : "open"}">${resolved ? "Resolved" : "Open"}</button>
+      </div>
+      <div class="answer-wrap" id="ans-${t.id}">
+        <div class="answer-inner">
+          <span class="answer-label">Resolution</span>
+          <p class="answer-text">${escapeHtml(t.a)}</p>
+        </div>
+      </div>
+    </article>`;
+}
+
+function getVisibleTickets(){
+  const q = state.query.trim().toLowerCase();
+  return ALL_TICKETS.filter(t => {
+    if (state.category !== "all" && t.catId !== state.category) return false;
+    if (!q) return true;
+    return t.q.toLowerCase().includes(q) || t.a.toLowerCase().includes(q) || t.id.toLowerCase().includes(q);
+  });
+}
+
+function renderList(){
+  stopSpeaking();
+  const container = document.getElementById("ticket-list");
+  const visible = getVisibleTickets();
+
+  if (visible.length === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <p>No tickets match that search. Try a different word.</p>
+      </div>`;
+    return;
+  }
+
+  if (state.category === "all"){
+    let html = "";
+    CATEGORIES.forEach(cat => {
+      const items = visible.filter(t => t.catId === cat.id);
+      if (items.length === 0) return;
+      html += `<section class="cat-section">
+        <div class="cat-head"><h2>${cat.label}</h2><p>${cat.blurb}</p></div>
+        ${items.map(ticketCardHtml).join("")}
+      </section>`;
+    });
+    container.innerHTML = html;
+  } else {
+    const cat = CATEGORIES.find(c => c.id === state.category);
+    container.innerHTML = `
+      <section class="cat-section">
+        <div class="cat-head"><h2>${cat.label}</h2><p>${cat.blurb}</p></div>
+        ${visible.map(ticketCardHtml).join("")}
+      </section>`;
+  }
+}
+
+// ---------------------------------------------------------------
+// INTERACTIONS
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
+// SPEECH (US English voice playback)
+// ---------------------------------------------------------------
+let voices = [];
+let currentSpeakingId = null;
+
+function loadVoices(){
+  if ("speechSynthesis" in window) voices = window.speechSynthesis.getVoices();
+}
+loadVoices();
+if ("speechSynthesis" in window){
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function getUSVoice(){
+  if (!voices.length) loadVoices();
+  const usVoices = voices.filter(v => v.lang === "en-US" || v.lang === "en_US");
+  if (usVoices.length){
+    const preferred = usVoices.find(v => /Google|Natural|Online|Aria|Jenny|Guy|Samantha/i.test(v.name));
+    return preferred || usVoices[0];
+  }
+  const anyEnglish = voices.filter(v => v.lang && v.lang.startsWith("en"));
+  return anyEnglish[0] || null;
+}
+
+function setListenBtnState(id, speaking){
+  const btn = document.querySelector(`.listen-btn[data-id="${id}"]`);
+  if (btn) btn.classList.toggle("speaking", speaking);
+}
+
+function stopSpeaking(){
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  if (currentSpeakingId) setListenBtnState(currentSpeakingId, false);
+  currentSpeakingId = null;
+}
+
+function speakTicket(id, q, a){
+  if (!("speechSynthesis" in window)){
+    alert("Voice playback isn't supported in this browser.");
+    return;
+  }
+  const wasSpeaking = currentSpeakingId === id;
+  stopSpeaking();
+  if (wasSpeaking) return;
+
+  const utter = new SpeechSynthesisUtterance("Question. " + q + " ... Resolution. " + a);
+  utter.lang = "en-US";
+  const voice = getUSVoice();
+  if (voice) utter.voice = voice;
+  utter.rate = 0.95;
+  utter.pitch = 1;
+  utter.onend = () => { if (currentSpeakingId === id){ setListenBtnState(id, false); currentSpeakingId = null; } };
+  utter.onerror = utter.onend;
+
+  currentSpeakingId = id;
+  setListenBtnState(id, true);
+  window.speechSynthesis.speak(utter);
+}
+
+function toggleExpand(id){
+  const wrap = document.getElementById("ans-" + id);
+  const btn = document.querySelector(`.ticket-main[data-id="${id}"]`);
+  if (!wrap || !btn) return;
+  const isOpen = wrap.classList.contains("expanded");
+  if (isOpen){
+    wrap.style.maxHeight = "0px";
+    wrap.classList.remove("expanded");
+    btn.setAttribute("aria-expanded", "false");
+  } else {
+    wrap.classList.add("expanded");
+    wrap.style.maxHeight = wrap.scrollHeight + "px";
+    btn.setAttribute("aria-expanded", "true");
+  }
+}
+
+function toggleStatus(id){
+  const resolved = state.status[id] === "resolved";
+  if (resolved) delete state.status[id];
+  else state.status[id] = "resolved";
+  saveProgress();
+
+  const pill = document.querySelector(`.status-pill[data-id="${id}"]`);
+  if (pill){
+    const nowResolved = state.status[id] === "resolved";
+    pill.textContent = nowResolved ? "Resolved" : "Open";
+    pill.dataset.state = nowResolved ? "resolved" : "open";
+  }
+  updateStatsDOM();
+  renderChips();
+}
+
+document.getElementById("ticket-list").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  const id = btn.dataset.id;
+  if (btn.dataset.action === "expand") toggleExpand(id);
+  else if (btn.dataset.action === "status") toggleStatus(id);
+  else if (btn.dataset.action === "listen"){
+    const ticket = ALL_TICKETS.find(t => t.id === id);
+    if (ticket) speakTicket(id, ticket.q, ticket.a);
+  }
+});
+
+document.getElementById("chips").addEventListener("scroll", () => requestAnimationFrame(updateChipNav));
+window.addEventListener("resize", () => requestAnimationFrame(updateChipNav));
+document.getElementById("chip-prev").addEventListener("click", () => {
+  document.getElementById("chips").scrollBy({ left: -180, behavior: "smooth" });
+});
+document.getElementById("chip-next").addEventListener("click", () => {
+  document.getElementById("chips").scrollBy({ left: 180, behavior: "smooth" });
+});
+
+document.getElementById("chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  state.category = chip.dataset.cat;
+  renderChips();
+  renderList();
+});
+
+document.getElementById("search").addEventListener("input", e => {
+  state.query = e.target.value;
+  renderList();
+});
+
+document.getElementById("tips-toggle").addEventListener("click", () => {
+  const body = document.getElementById("tips-body");
+  const btn = document.getElementById("tips-toggle");
+  const isOpen = body.classList.contains("open");
+  if (isOpen){
+    body.style.maxHeight = "0px";
+    body.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  } else {
+    body.classList.add("open");
+    body.style.maxHeight = body.scrollHeight + "px";
+    btn.setAttribute("aria-expanded", "true");
+  }
+});
+
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (!window.confirm("Reset all resolved tickets back to Open?")) return;
+  state.status = {};
+  saveProgress();
+  updateStatsDOM();
+  renderChips();
+  renderList();
+});
+
+// ---------------------------------------------------------------
+// INIT
+// ---------------------------------------------------------------
+(async function init(){
+  await loadProgress();
+  updateStatsDOM();
+  renderChips();
+  renderList();
+})();
+</script>
+</body>
+</html>
